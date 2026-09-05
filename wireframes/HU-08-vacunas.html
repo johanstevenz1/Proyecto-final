@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HU-08: Vacunas y Desparasitaciones</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#f5f5f5}
+.navbar{background:linear-gradient(135deg,#2196F3,#1976D2);color:white;padding:15px 30px}
+.navbar h1{font-size:1.3em}
+.breadcrumb{padding:15px 30px;background:white;border-bottom:1px solid #e0e0e0;font-size:.85em;color:#666}
+.breadcrumb a{color:#1976D2;text-decoration:none}
+.container{max-width:900px;margin:30px auto;padding:0 20px}
+.pet-header{background:white;border-radius:12px;padding:20px 25px;box-shadow:0 2px 12px rgba(0,0,0,.08);margin-bottom:20px;display:flex;align-items:center;gap:20px}
+.pet-avatar{width:70px;height:70px;background:#e8f5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2em}
+.pet-info h2{color:#2e7d32}
+.pet-info p{color:#666;font-size:.9em}
+.tabs{display:flex;gap:0;margin-bottom:20px}
+.tab{padding:12px 24px;background:white;border:2px solid #e0e0e0;border-bottom:none;border-radius:8px 8px 0 0;cursor:pointer;font-weight:600;color:#666}
+.tab.active{background:#e8f5e9;border-color:#4CAF50;color:#2e7d32}
+.section{background:white;border-radius:0 12px 12px 12px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:25px}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.section-header h3{color:#1565c0}
+.btn{padding:8px 16px;border:none;border-radius:6px;font-weight:600;cursor:pointer}
+.btn-primary{background:#4CAF50;color:white}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.card{border:2px solid #e0e0e0;border-radius:8px;padding:15px}
+.card .name{font-weight:600;color:#333;margin-bottom:5px}
+.card .date{font-size:.85em;color:#666}
+.card .next{font-size:.85em;color:#ff9800;margin-top:5px}
+.card .next.urgent{color:#e53935;font-weight:600}
+.wireframe-label{position:fixed;top:10px;right:10px;background:#ff9800;color:white;padding:5px 12px;border-radius:20px;font-size:.75em;font-weight:600;z-index:100}
+</style>
+</head>
+<body>
+<div class="wireframe-label">WIREFRAME - HU-08</div>
+<div class="navbar"><h1>Jovan Pets</h1></div>
+<div class="breadcrumb"><a href="#">Inicio</a> / Mascotas / Max / Vacunas</div>
+<div class="container">
+<div class="pet-header"><div class="pet-avatar">🐕</div><div class="pet-info"><h2>Max</h2><p>Propietario: Juan Pérez García</p></div></div>
+<div class="tabs"><div class="tab active">Vacunas</div><div class="tab">Desparasitaciones</div></div>
+<div class="section">
+<div class="section-header"><h3>Vacunas Registradas</h3><button class="btn btn-primary">+ Nueva Vacuna</button></div>
+<div class="grid">
+<div class="card"><div class="name">Rabia</div><div class="date">Aplicada: 01 Jul 2026</div><div class="next">Proxima: 01 Jul 2027</div></div>
+<div class="card"><div class="name">Parvovirus</div><div class="date">Aplicada: 15 Mar 2026</div><div class="next urgent">Proxima: 15 Sep 2026 (vence pronto)</div></div>
+<div class="card"><div class="name">Moquillo</div><div class="date">Aplicada: 20 Ene 2026</div><div class="next">Proxima: 20 Ene 2027</div></div>
+<div class="card"><div class="name">Leptospirosis</div><div class="date">Aplicada: 10 Nov 2025</div><div class="next urgent">Proxima: 10 May 2026 (vencida)</div></div>
+</div>
+</div>
+</div>
+</body>
+</html>
