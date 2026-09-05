@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HU-10: Confirmar o Rechazar Cita</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#f5f5f5}
+.navbar{background:linear-gradient(135deg,#2196F3,#1976D2);color:white;padding:15px 30px}
+.navbar h1{font-size:1.3em}
+.breadcrumb{padding:15px 30px;background:white;border-bottom:1px solid #e0e0e0;font-size:.85em;color:#666}
+.container{max-width:1000px;margin:30px auto;padding:0 20px}
+.header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.header-row h2{color:#1565c0}
+.panel{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{background:#f5f5f5;padding:14px 20px;text-align:left;font-weight:600;color:#555;font-size:.85em}
+td{padding:14px 20px;border-bottom:1px solid #f0f0f0}
+.badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:.8em;font-weight:600}
+.badge.pendiente{background:#fff3e0;color:#e65100}
+.badge.confirmada{background:#e8f5e9;color:#2e7d32}
+.badge.rechazada{background:#ffebee;color:#c62828}
+.action-btn{padding:6px 12px;border:none;border-radius:6px;font-size:.8em;cursor:pointer;margin-right:5px;font-weight:600}
+.action-btn.confirm{background:#4CAF50;color:white}
+.action-btn.reject{background:#ef5350;color:white}
+.action-btn.view{background:#e3f2fd;color:#1565c0}
+.wireframe-label{position:fixed;top:10px;right:10px;background:#ff9800;color:white;padding:5px 12px;border-radius:20px;font-size:.75em;font-weight:600;z-index:100}
+</style>
+</head>
+<body>
+<div class="wireframe-label">WIREFRAME - HU-10</div>
+<div class="navbar"><h1>Jovan Pets</h1></div>
+<div class="breadcrumb"><a href="#">Inicio</a> / Citas / Gestionar Citas</div>
+<div class="container">
+<div class="header-row"><h2>Gestionar Citas Pendientes</h2><span style="color:#999">3 citas pendientes de confirmar</span></div>
+<div class="panel">
+<table>
+<thead><tr><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Mascota</th><th>Servicio</th><th>Estado</th><th>Acciones</th></tr></thead>
+<tbody>
+<tr><td>05 Sep 2026</td><td>09:30</td><td>Juan Perez</td><td>Max</td><td>Consulta General</td><td><span class="badge pendiente">Pendiente</span></td><td><button class="action-btn confirm">Confirmar</button><button class="action-btn reject">Rechazar</button></td></tr>
+<tr><td>05 Sep 2026</td><td>10:00</td><td>Maria Lopez</td><td>Luna</td><td>Vacunacion</td><td><span class="badge pendiente">Pendiente</span></td><td><button class="action-btn confirm">Confirmar</button><button class="action-btn reject">Rechazar</button></td></tr>
+<tr><td>06 Sep 2026</td><td>14:00</td><td>Carlos Martinez</td><td>Toby</td><td>Desparasitacion</td><td><span class="badge pendiente">Pendiente</span></td><td><button class="action-btn confirm">Confirmar</button><button class="action-btn reject">Rechazar</button></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
