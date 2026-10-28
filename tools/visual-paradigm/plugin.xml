@@ -1,0 +1,1 @@
+<plugin id="com.jovanpets.entrega20261027" name="Entrega Jovan Pets" description="Tres vistas nativas" provider="Jovan Pets" class="EntregaDiagramas"><runtime><library path="classes" relativePath="true"/></runtime></plugin>
