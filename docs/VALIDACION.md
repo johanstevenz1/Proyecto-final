@@ -38,13 +38,17 @@ El proyecto se generó con Visual Paradigm 18.1, build 20260838. Se guardó y vo
 | Diagrama nativo | Formas | Conectores |
 |---|---:|---:|
 | YourdonDeMarcoDFD: contexto | 8 | 8 |
-| ComponentDiagram: funcional | 20 | 0 |
+| ComponentDiagram: funcional (revisión 28 de octubre) | 35 | 10 |
 | ClassDiagram: lógica | 13 | 9 |
 
-Los conteos de formas incluyen encabezados y leyendas. El modelo lógico tiene diez clases de dominio. No hay relaciones UML `Dependency` en el proyecto. La vista funcional no tiene relaciones entre componentes. Se conservaron las marcas de agua.
+Los conteos de formas incluyen encabezados y leyendas. El modelo lógico tiene diez clases de dominio. No hay relaciones UML `Dependency` en el proyecto. La vista funcional conecta los puertos de seis componentes mediante cinco interfaces estructuradas, con cinco relaciones Realization y cinco Usage. No hay flechas UML Dependency entre cajas de componentes. Se conservaron las marcas de agua.
 
 El motor de Visual Paradigm emitió avisos porque `wmic` no está disponible en este Windows. La generación terminó y el archivo VPP fue guardado, reabierto y exportado; el resultado se comprobó en `diagramas/validacion-modelo.txt`. Para la ejecución CLI se usaron preferencias efímeras en memoria, sin escribir al registro de Windows; no se modificó la licencia.
 
 ## Límites
 
 HU-22 no está implementada. Otras HU tienen cobertura parcial, registrada en TRAZABILIDAD.md. No se ejecutó PostgreSQL real, una carga de rendimiento, respaldo automático, envío de correo, pago ni un nuevo despliegue público.
+
+## Revisión gráfica del 28 de octubre
+
+Se guardaron y reabrieron un proyecto completo con las tres vistas y un proyecto independiente de componentes. La vista funcional tiene seis componentes, diez puertos y cinco interfaces, con diez tramos nativos. Se comprobaron los contratos contra las cinco interfaces inyectadas en ApiControlador y se revisó visualmente la imagen exportada. Los resultados del backend pertenecen a la ejecución del 27 de octubre; no se volvió a ejecutar la suite porque esta revisión solo cambia el diagrama y su documentación.

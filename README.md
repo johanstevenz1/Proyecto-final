@@ -1,6 +1,6 @@
 # Jovan Pets — entrega de Ingeniería de Software
 
-Análisis de las 24 HU, backend Java/Spring Boot, frontend, persistencia y tres vistas nativas de Visual Paradigm. Revisión: **27 de octubre de 2026**.
+Análisis de las 24 HU, backend Java/Spring Boot, frontend, persistencia y tres vistas nativas de Visual Paradigm. Código revisado el **27 de octubre de 2026**. Diagrama de componentes actualizado el **28 de octubre de 2026**.
 
 ## Entregables principales
 
@@ -16,7 +16,7 @@ Análisis de las 24 HU, backend Java/Spring Boot, frontend, persistencia y tres 
 | Vista | Imagen exportada por Visual Paradigm |
 |---|---|
 | Contexto | [01-contexto.png](docs/diagramas/01-contexto.png) |
-| Funcional, componentes sin dependencias | [02-componentes.png](docs/diagramas/02-componentes.png) |
+| Funcional, puertos e interfaces conectadas | [02-componentes.png](docs/diagramas/02-componentes.png) |
 | Lógica, clases del dominio | [03-clases.png](docs/diagramas/03-clases.png) |
 
 **Abrir y editar en Visual Paradigm:** [Jovan-Pets.vpp](docs/diagramas/Jovan-Pets.vpp). Contiene exactamente las tres vistas, con elementos nativos. Las exportaciones conservan la marca de agua de evaluación. [Registro de comprobación](docs/diagramas/validacion-modelo.txt).
@@ -71,3 +71,5 @@ El `main` inicial estaba vacío tras eliminarse documentos. Se recuperaron los r
 **Diez pruebas de integración pasaron**, incluidas concurrencia de inventario y reservas. Se comprobó en navegador el recorrido de inicio de sesión → carrito → pedido → persistencia y decremento de stock, usando otra base local con datos ficticios.
 
 Hay cobertura parcial y pendiente: recuperación por correo (HU-22), notificaciones (HU-10), auditoría de clientes, edición de antecedentes, paginación y filtro por veterinario, entre otros criterios descritos en la matriz. Peluquería, horarios y modalidades de entrega se conservan como decisiones del prototipo que requieren confirmación. No se procesan pagos electrónicos ni se realizó un nuevo despliegue público.
+
+La revisión del 28 de octubre incorpora las conexiones de componentes solicitadas a partir de dos presentaciones de referencia. El proyecto completo conserva contexto y clases. También se incluye [un VPP independiente de componentes](docs/diagramas/Jovan-Pets-componentes.vpp).

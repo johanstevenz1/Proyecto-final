@@ -27,7 +27,7 @@ Se encontró además una entrega local anterior del mismo proyecto, del 25 de oc
 | HU-11 pide filtro por veterinario; el código agenda por categoría. | Se marca parcial. No se inventa una clase Veterinario ni una asignación inexistente en el diagrama de la implementación. |
 | La documentación inicial menciona peluquería y entrega a domicilio; las HU no definen sus reglas específicas. | Se conserva lo ya implementado como decisión de prototipo. Requiere confirmación de negocio; no se describe como requisito aprobado por HU-12 o HU-17. |
 | El código permite a personal o propietarios algunas operaciones cuyas HU nombran al administrador. | Se registra la ampliación preexistente de permisos para revisión, sin atribuirla a las HU. |
-| La vista de componentes de ejemplo tiene conectores; AGENTS.md prohíbe dependencias. | La vista final conserva componentes UML y sus responsabilidades, sin relaciones entre cajas. Los contratos se describen en texto. |
+| La vista de componentes de ejemplo tiene conectores; AGENTS.md prohíbe dependencias. | La revisión del 28 de octubre conecta el portal/API y los módulos mediante puertos e interfaces provistas/requeridas, con líneas continuas. No hay flechas UML Dependency entre componentes. |
 | Las entidades JPA no implementan operaciones de negocio. | El diagrama lógico muestra sus atributos y asociaciones. Las operaciones reales residen en servicios; no se inventan métodos para imitar el ejemplo. |
 
 ## Reglas de prototipo conservadas
@@ -47,3 +47,7 @@ Las cuentas públicas se registran siempre como CLIENTE. Se usa BCrypt, sesión 
 5. Revisar las tres vistas y después desarrollar las vistas gráficas de desarrollo y despliegue indicadas en AGENTS.md. No se realizó un nuevo despliegue público.
 
 La entrega contiene un incremento ejecutable y los tres entregables prioritarios. No declara terminadas las 24 HU ni atribuye resultados de pruebas a flujos que no se ejecutaron.
+
+## Revisión del 28 de octubre de 2026
+
+A solicitud del estudiante, se revisaron las diapositivas de componentes de Modelo de presentación de diseño y EcoGestion_3_diagramas_relaciones_conectadas. La vista funcional incorpora su notación de puertos, interfaz provista circular e interfaz requerida semicircular. Se mantiene el alcance de Jovan Pets y se utilizan los cinco contratos reales de ApiControlador. Las vistas de contexto y lógica se conservan. No se modifica el backend en esta revisión.

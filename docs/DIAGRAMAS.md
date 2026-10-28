@@ -19,7 +19,7 @@ Las flechas representan información que entra o sale. No representan llamadas e
 
 [Abrir imagen](diagramas/02-componentes.png)
 
-Cinco componentes funcionales corresponden a las cinco interfaces de servicio reales del backend:
+La vista conecta el componente Portal web y API REST con cinco componentes funcionales mediante las cinco interfaces de servicio reales del backend:
 
 | Componente | Contrato | Implementación | HU |
 |---|---|---|---|
@@ -29,7 +29,15 @@ Cinco componentes funcionales corresponden a las cinco interfaces de servicio re
 | Productos, pedidos e inventario | IVentas | VentaServicio | HU-13 a HU-17 |
 | Panel administrativo | IPanel | PanelServicio | HU-24 |
 
-Son divisiones de un monolito. La agrupación de catálogo, pedido e inventario refleja su coordinación transaccional en VentaServicio. El correo de HU-22 es alcance previsto, todavía sin implementación. La imagen no contiene conectores ni dependencias entre componentes, respetando la restricción explícita de AGENTS.md. Los nombres de los contratos son texto complementario; no se hacen pasar por conexiones UML implementadas.
+Son divisiones de un monolito. La agrupación de catálogo, pedido e inventario refleja su coordinación transaccional en VentaServicio. El correo de HU-22 es alcance previsto, todavía sin implementación.
+
+La revisión del 28 de octubre incorpora los puertos y las interfaces provistas/requeridas de las presentaciones de referencia. ApiControlador recibe IUsuarios, IClientesMascotas, ICitas, IVentas e IPanel en su constructor; estos cinco contratos justifican las cinco conexiones del componente Portal web y API REST.
+
+Cada módulo provee su interfaz mediante un círculo y el portal/API la requiere mediante un semicírculo. Los cuadrados son puertos. Visual Paradigm guarda la notación con interfaces estructuradas y relaciones nativas Realization/Usage hacia las interfaces. Estas relaciones expresan provisión y uso de contratos; la vista no dibuja flechas UML Dependency directamente entre cajas de componentes. Las líneas continuas unen los puertos a los contratos.
+
+La vista contiene seis componentes, diez puertos, cinco interfaces y diez tramos nativos (cinco Realization y cinco Usage). No pretende enumerar todas las llamadas internas entre clases de servicio. Los componentes funcionales se comunican dentro de la misma aplicación y no son microservicios desplegados por separado.
+
+Se conservan los nombres de contrato Java y se añade una descripción funcional junto a cada conexión. Las HU se anotan junto al componente responsable.
 
 ## Vista lógica
 
@@ -51,6 +59,6 @@ Las operaciones de negocio están en la capa servicio, por lo que no se añaden 
 
 ## Reproducibilidad
 
-`tools/visual-paradigm/EntregaDiagramas.java` contiene el generador. Se compila contra `openapi.jar` de la instalación de Visual Paradigm. La exportación requiere una instalación y licencia válidas de la aplicación; no se incluyen librerías propietarias. La ejecución utilizada se registra en `diagramas/validacion-modelo.txt`.
+`tools/visual-paradigm/EntregaDiagramas.java` contiene el generador inicial. `tools/visual-paradigm/ComponentesConectados.java` actualiza la vista funcional de un proyecto existente y genera también un VPP independiente de componentes. Se compila contra `openapi.jar` de la instalación de Visual Paradigm. La exportación requiere una instalación y licencia válidas de la aplicación; no se incluyen librerías propietarias. La ejecución utilizada se registra en `diagramas/validacion-modelo.txt`.
 
 Documentación oficial: [modelos mediante Open API](https://circle.visual-paradigm.com/docs/open-api/implementing-plug-in/implementing-a-visual-paradigm-plug-in/) y [ejecución de complementos](https://www.visual-paradigm.com/support/documents/vpuserguide/124/255/84449_runningplug-.html).

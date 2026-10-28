@@ -1,8 +1,9 @@
-Generado y reabierto por Visual Paradigm 20260838
-03 · Vista logica | tipo ClassDiagram | 13 formas | 9 conectores
-02 · Vista funcional | tipo ComponentDiagram | 20 formas | 0 conectores
-01 · Vista de contexto | tipo YourdonDeMarcoDFD | 8 formas | 8 conectores
-Dependency: 0
-Origen: Open API nativa; exportacion: ModelConvertionManager.exportDiagramAsImage
-Clases de dominio: 10. Atributos reflejan las entidades Java; operaciones de negocio en servicios.
-Fecha: 2026-10-27T19:43:07.429239800-05:00[America/Bogota]
+Visual Paradigm 20260838
+Fecha: 2026-10-28T17:14:34.782643100-05:00[America/Bogota]
+03 · Vista logica | ClassDiagram | 13 formas | 9 conectores
+02 · Vista funcional | ComponentDiagram | 35 formas | 10 conectores
+01 · Vista de contexto | YourdonDeMarcoDFD | 8 formas | 8 conectores
+Vista funcional: 6 componentes, 10 puertos, 5 interfaces, 5 realizaciones y 5 usos.
+No hay relaciones Dependency entre componentes.
+Las interfaces provistas/requeridas se muestran con lineas continuas, circulo y semicirculo.
+Los cinco contratos coinciden con los tipos inyectados en ApiControlador.
