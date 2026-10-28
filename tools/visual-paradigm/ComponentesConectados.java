@@ -109,7 +109,7 @@ public class ComponentesConectados extends EntregaDiagramas {
     IDiagramUIModel d=diagrama(DiagramManager.DIAGRAM_TYPE_COMPONENT_DIAGRAM,"02 · Vista funcional");
     titulo(d,"Vista funcional: componentes",2120,"Jovan Pets · Puertos e interfaces provistas y requeridas");
     IShapeUIModel marco=forma(d,f.createRectangle(),"",45,180,2030,1150,Color.WHITE,20);marco.sendToBack();
-    IComponentUIModel api=modulo(d,"Portal web y\nAPI REST",850,465,420,450,"Frontend y ApiControlador. Requiere IUsuarios, IClientesMascotas, ICitas, IVentas e IPanel.");
+    IComponentUIModel api=modulo(d,"Portal web y\nAPI REST",880,615,360,150,"Frontend y ApiControlador. Requiere IUsuarios, IClientesMascotas, ICitas, IVentas e IPanel.");
     IComponentUIModel usuarios=modulo(d,"Usuarios y acceso",100,260,440,120,"HU-18 a HU-22. Registro, sesion y roles. Recuperacion por correo pendiente.");
     IComponentUIModel clientes=modulo(d,"Clientes y mascotas",100,640,440,120,"HU-01 a HU-08. Clientes, mascotas e historial.");
     IComponentUIModel citas=modulo(d,"Citas y servicios",100,1020,440,120,"HU-09 a HU-12 y HU-23. Disponibilidad, reserva y gestion de citas.");
@@ -120,11 +120,11 @@ public class ComponentesConectados extends EntregaDiagramas {
     texto(d,"HU-09 a HU-12 y HU-23",100,1153,440,40,18,Color.WHITE,false);
     texto(d,"HU-13 a HU-17",1580,550,440,40,18,Color.WHITE,false);
     texto(d,"HU-24",1580,1085,440,40,18,Color.WHITE,false);
-    conexion(d,usuarios,api,"IUsuarios","Cuentas y roles",540,320,850,530,690,320,new int[][]{{850,530},{820,530},{820,320},{690,320}},580,355,220);
-    conexion(d,clientes,api,"IClientesMascotas","Clientes, mascotas\ne historial",540,700,850,700,690,700,new int[][]{{850,700},{690,700}},550,735,280);
-    conexion(d,citas,api,"ICitas","Agenda y servicios",540,1080,850,860,690,1080,new int[][]{{850,860},{790,860},{790,1080},{690,1080}},580,1115,220);
-    conexion(d,ventas,api,"IVentas","Catalogo, pedidos\ny existencias",1580,468,1270,570,1430,468,new int[][]{{1270,570},{1295,570},{1295,468},{1430,468}},1310,503,240);
-    conexion(d,panel,api,"IPanel","Indicadores del negocio",1580,1010,1270,820,1430,1010,new int[][]{{1270,820},{1295,820},{1295,1010},{1430,1010}},1320,1045,220);
+    conexion(d,usuarios,api,"IUsuarios","Cuentas y roles",540,320,880,640,690,320,new int[][]{{880,640},{820,640},{820,320},{690,320}},580,355,220);
+    conexion(d,clientes,api,"IClientesMascotas","Clientes, mascotas\ne historial",540,700,880,700,690,700,new int[][]{{880,700},{690,700}},550,735,280);
+    conexion(d,citas,api,"ICitas","Agenda y servicios",540,1080,880,750,690,1080,new int[][]{{880,750},{845,750},{845,1080},{690,1080}},580,1115,220);
+    conexion(d,ventas,api,"IVentas","Catalogo, pedidos\ny existencias",1580,468,1240,655,1430,468,new int[][]{{1240,655},{1295,655},{1295,468},{1430,468}},1310,503,240);
+    conexion(d,panel,api,"IPanel","Indicadores del negocio",1580,1010,1240,735,1430,1010,new int[][]{{1240,735},{1295,735},{1295,1010},{1430,1010}},1320,1045,220);
     texto(d,"Circulo: interfaz provista. Semicirculo: interfaz requerida. Cuadrado: puerto.\nLineas continuas: conexion mediante contrato. Los componentes pertenecen al mismo monolito Spring Boot.",80,1230,1960,80,20,Color.WHITE,false);
     dm.openDiagram(d);
   }
