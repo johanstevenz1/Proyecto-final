@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 
 /** Mascota. Referencia a su propietario mediante propietarioId (coleccion clientes). */
 @Document("mascotas")
-public class Mascota {
+public class Mascota extends RegistroActivable {
   @Id private String id;
 
   @Indexed private String propietarioId;
@@ -27,7 +27,6 @@ public class Mascota {
   @Field(targetType = FieldType.DECIMAL128)
   private BigDecimal peso;
 
-  private boolean activo = true;
   private Instant fechaRegistro;
 
   public String getId() { return id; }
@@ -46,8 +45,6 @@ public class Mascota {
   public void setFechaNacimiento(LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
   public BigDecimal getPeso() { return peso; }
   public void setPeso(BigDecimal peso) { this.peso = peso; }
-  public boolean isActivo() { return activo; }
-  public void setActivo(boolean activo) { this.activo = activo; }
   public Instant getFechaRegistro() { return fechaRegistro; }
   public void setFechaRegistro(Instant fechaRegistro) { this.fechaRegistro = fechaRegistro; }
 }

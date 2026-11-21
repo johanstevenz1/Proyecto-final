@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * el cliente.
  */
 @Document("clientes")
-public class Cliente {
+public class Cliente extends RegistroActivable {
   @Id private String id;
 
   /** Bloqueo optimista ante modificaciones concurrentes. */
@@ -27,7 +27,6 @@ public class Cliente {
   @Indexed private String telefono;
   private String email;
   private String direccion;
-  private boolean activo = true;
   private Instant fechaRegistro;
   private List<CambioCliente> historial = new ArrayList<>();
 
@@ -45,8 +44,6 @@ public class Cliente {
   public void setEmail(String email) { this.email = email; }
   public String getDireccion() { return direccion; }
   public void setDireccion(String direccion) { this.direccion = direccion; }
-  public boolean isActivo() { return activo; }
-  public void setActivo(boolean activo) { this.activo = activo; }
   public Instant getFechaRegistro() { return fechaRegistro; }
   public void setFechaRegistro(Instant fechaRegistro) { this.fechaRegistro = fechaRegistro; }
   public List<CambioCliente> getHistorial() { return historial; }

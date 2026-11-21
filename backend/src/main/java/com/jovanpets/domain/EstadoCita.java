@@ -4,13 +4,14 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /** Estados de una cita y transiciones permitidas. */
-public enum EstadoCita {
+public enum EstadoCita implements EstadoConTransiciones<EstadoCita> {
   PENDIENTE,
   CONFIRMADA,
   RECHAZADA,
   CANCELADA,
   ATENDIDA;
 
+  @Override
   public Set<EstadoCita> siguientes() {
     return switch (this) {
       case PENDIENTE -> EnumSet.of(CONFIRMADA, RECHAZADA, CANCELADA);
@@ -19,9 +20,6 @@ public enum EstadoCita {
     };
   }
 
-  public boolean puedeCambiarA(EstadoCita destino) {
-    return siguientes().contains(destino);
-  }
 
   /** Una cita activa ocupa su franja horaria en la agenda. */
   public boolean ocupaAgenda() {

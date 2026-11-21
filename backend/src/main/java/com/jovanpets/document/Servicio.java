@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 
 /** Servicio veterinario o de peluqueria ofrecido por la clinica (HU-12). */
 @Document("servicios")
-public class Servicio {
+public class Servicio extends RegistroActivable {
   @Id private String id;
   private String nombre;
   private String descripcion;
@@ -19,7 +19,6 @@ public class Servicio {
   private BigDecimal precio;
 
   private int duracionMinutos;
-  private boolean activo = true;
 
   public String getId() { return id; }
   public void setId(String id) { this.id = id; }
@@ -33,6 +32,4 @@ public class Servicio {
   public void setPrecio(BigDecimal precio) { this.precio = precio; }
   public int getDuracionMinutos() { return duracionMinutos; }
   public void setDuracionMinutos(int duracionMinutos) { this.duracionMinutos = duracionMinutos; }
-  public boolean isActivo() { return activo; }
-  public void setActivo(boolean activo) { this.activo = activo; }
 }

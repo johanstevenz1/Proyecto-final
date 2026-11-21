@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
  * condicionadas (stock >= cantidad) y la edicion usa bloqueo optimista con {@link Version}.
  */
 @Document("productos")
-public class Producto {
+public class Producto extends RegistroActivable {
   @Id private String id;
   @Indexed private String nombre;
   private String descripcion;
@@ -27,7 +27,6 @@ public class Producto {
   private int stockMinimo;
   /** Medicamentos que exigen formula veterinaria: se consultan pero no se venden en linea. */
   private boolean requiereFormula;
-  private boolean activo = true;
   @Version private Long version;
 
   public String getId() { return id; }
@@ -46,8 +45,6 @@ public class Producto {
   public void setStockMinimo(int stockMinimo) { this.stockMinimo = stockMinimo; }
   public boolean isRequiereFormula() { return requiereFormula; }
   public void setRequiereFormula(boolean requiereFormula) { this.requiereFormula = requiereFormula; }
-  public boolean isActivo() { return activo; }
-  public void setActivo(boolean activo) { this.activo = activo; }
   public Long getVersion() { return version; }
   public void setVersion(Long version) { this.version = version; }
 

@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /** Cuenta de acceso. Referencia opcionalmente la ficha de {@link Cliente} mediante clienteId. */
 @Document("usuarios")
-public class Usuario {
+public class Usuario extends RegistroActivable {
   @Id private String id;
 
   @Indexed(unique = true)
@@ -19,7 +19,6 @@ public class Usuario {
 
   @Indexed private Rol rol;
 
-  private boolean activo = true;
 
   @Indexed(sparse = true)
   private String clienteId;
@@ -41,8 +40,6 @@ public class Usuario {
   public void setNombre(String nombre) { this.nombre = nombre; }
   public Rol getRol() { return rol; }
   public void setRol(Rol rol) { this.rol = rol; }
-  public boolean isActivo() { return activo; }
-  public void setActivo(boolean activo) { this.activo = activo; }
   public String getClienteId() { return clienteId; }
   public void setClienteId(String clienteId) { this.clienteId = clienteId; }
   public int getVersionSesion() { return versionSesion; }
