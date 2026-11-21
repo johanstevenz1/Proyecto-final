@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Cargando } from '../components/Comunes';
+import { Cargando, Encabezado } from '../components/Comunes';
 import {
   IconoCalendario,
   IconoCamion,
@@ -14,20 +14,20 @@ import {
 } from '../components/Iconos';
 import { inicioPorRol, useAuth } from '../contexts/AuthContext';
 import { useCarga } from '../hooks/useCarga';
-import { productosService, serviciosService } from '../services/servicios';
+import { serviciosService } from '../services/servicios';
 import { etiqueta, formatoMoneda } from '../utils/formato';
 
-/** Pagina de inicio: presenta Jovan Pets, sus servicios y accesos a las funcionalidades. */
+/** Pagina de inicio: presenta Jovan Pets y da acceso a iniciar sesion o registrarse. */
 export function Inicio() {
   const { usuario } = useAuth();
-  const datos = useCarga(() => Promise.all([serviciosService.activos(), productosService.catalogo()]), []);
-  const [servicios, productos] = datos.datos ?? [[], []];
-  const destino = usuario ? inicioPorRol(usuario.rol) : '/registro';
+  const esCliente = usuario?.rol === 'CLIENTE';
+  const panel = usuario ? inicioPorRol(usuario.rol) : '/login';
 
+  // Con sesion iniciada cada tarjeta lleva a su funcion; sin sesion se ofrece entrar o registrarse.
   const modulos = [
-    { icono: IconoEstetoscopio, titulo: 'Atención veterinaria', texto: 'Consultas, controles, vacunas y desparasitación con agenda en línea.', a: usuario?.rol === 'CLIENTE' ? '/portal/citas/nueva' : destino },
-    { icono: IconoTijeras, titulo: 'Peluquería', texto: 'Baño, corte y cuidado estético con una agenda independiente.', a: usuario?.rol === 'CLIENTE' ? '/portal/citas/nueva' : destino },
-    { icono: IconoPortapapeles, titulo: 'Historial clínico', texto: 'Antecedentes, vacunas y próximas dosis de cada mascota.', a: usuario?.rol === 'CLIENTE' ? '/portal/mascotas' : destino },
+    { icono: IconoEstetoscopio, titulo: 'Atención veterinaria', texto: 'Consultas, controles, vacunas y desparasitación con agenda en línea.', a: esCliente ? '/portal/citas/nueva' : panel },
+    { icono: IconoTijeras, titulo: 'Peluquería', texto: 'Baño, corte y cuidado estético con una agenda independiente.', a: esCliente ? '/portal/citas/nueva' : panel },
+    { icono: IconoPortapapeles, titulo: 'Historial clínico', texto: 'Antecedentes, vacunas y próximas dosis de cada mascota.', a: esCliente ? '/portal/mascotas' : usuario ? '/panel/mascotas' : panel },
     { icono: IconoCarrito, titulo: 'Tienda en línea', texto: 'Alimentos, accesorios e higiene con entrega o recogida.', a: '/catalogo' },
   ];
 
@@ -50,28 +50,14 @@ export function Inicio() {
                 </Link>
               ) : (
                 <>
-                  <Link className="boton boton-grande boton-claro" to="/registro">
-                    Crear mi cuenta <IconoFlecha tam={18} />
+                  <Link className="boton boton-grande boton-claro" to="/login">
+                    Iniciar sesión <IconoFlecha tam={18} />
                   </Link>
-                  <Link className="boton boton-grande boton-transparente" to="/login">
-                    Iniciar sesión
+                  <Link className="boton boton-grande boton-transparente" to="/registro">
+                    Crear cuenta
                   </Link>
                 </>
               )}
-            </div>
-            <div className="portada-cifras">
-              <div>
-                <strong>{servicios.length}</strong>
-                <span>servicios disponibles</span>
-              </div>
-              <div>
-                <strong>{productos.length}</strong>
-                <span>productos en tienda</span>
-              </div>
-              <div>
-                <strong>2</strong>
-                <span>agendas: veterinaria y peluquería</span>
-              </div>
             </div>
           </div>
           <div className="portada-tarjetas" aria-hidden="true">
@@ -113,71 +99,38 @@ export function Inicio() {
           <h2>Todo lo que tu mascota necesita</h2>
         </div>
         <div className="rejilla rejilla-4">
-          {modulos.map((m) => (
-            <Link key={m.titulo} to={m.a} className="tarjeta-modulo">
-              <span className="icono-circulo azul">
-                <m.icono tam={24} />
-              </span>
-              <h3>{m.titulo}</h3>
-              <p>{m.texto}</p>
-              <span className="enlace-flecha">
-                Ir <IconoFlecha tam={16} />
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="seccion seccion-gris" id="servicios">
-        <div className="seccion-titulo">
-          <span>Servicios</span>
-          <h2>Precios claros y duración estimada</h2>
-        </div>
-        {datos.cargando ? (
-          <Cargando />
-        ) : servicios.length ? (
-          <div className="rejilla rejilla-auto">
-            {servicios.map((s) => (
-              <article key={s.id} className={`tarjeta-servicio ${s.categoria === 'PELUQUERIA' ? 'peluqueria' : ''}`}>
-                <span className="icono-circulo">{s.categoria === 'PELUQUERIA' ? <IconoTijeras /> : <IconoEstetoscopio />}</span>
-                <span className="insignia insignia-azul">{etiqueta(s.categoria)}</span>
-                <h3>{s.nombre}</h3>
-                <p>{s.descripcion}</p>
-                <div className="meta">
-                  <span className="precio">{formatoMoneda(s.precio)}</span>
-                  <span>{s.duracionMinutos} min</span>
+          {modulos.map((m) =>
+            usuario ? (
+              <Link key={m.titulo} to={m.a} className="tarjeta-modulo">
+                <span className="icono-circulo azul">
+                  <m.icono tam={24} />
+                </span>
+                <h3>{m.titulo}</h3>
+                <p>{m.texto}</p>
+                <span className="enlace-flecha">
+                  Ir <IconoFlecha tam={16} />
+                </span>
+              </Link>
+            ) : (
+              <article key={m.titulo} className="tarjeta-modulo">
+                <span className="icono-circulo azul">
+                  <m.icono tam={24} />
+                </span>
+                <h3>{m.titulo}</h3>
+                <p>{m.texto}</p>
+                <div className="acciones-tarjeta">
+                  <Link className="boton boton-pequeno" to="/login" state={{ desde: m.a === '/login' ? undefined : m.a }}>
+                    Iniciar sesión
+                  </Link>
+                  <Link className="boton boton-secundario boton-pequeno" to="/registro">
+                    Crear cuenta
+                  </Link>
                 </div>
               </article>
-            ))}
-          </div>
-        ) : (
-          <p className="vacio">Pronto publicaremos nuestros servicios.</p>
-        )}
+            ),
+          )}
+        </div>
       </section>
-
-      {productos.length > 0 && (
-        <section className="seccion">
-          <div className="seccion-titulo con-accion">
-            <div>
-              <span>Tienda</span>
-              <h2>Productos destacados</h2>
-            </div>
-            <Link className="boton boton-secundario" to="/catalogo">
-              Ver toda la tienda <IconoFlecha tam={16} />
-            </Link>
-          </div>
-          <div className="rejilla rejilla-4">
-            {productos.slice(0, 4).map((p) => (
-              <Link key={p.id} to="/catalogo" className="tarjeta-producto">
-                <div className="producto-imagen">{iconoCategoria(p.categoria)}</div>
-                <span className="insignia insignia-azul">{etiqueta(p.categoria)}</span>
-                <h3>{p.nombre}</h3>
-                <span className="precio">{formatoMoneda(p.precio)}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
 
       <section className="seccion">
         <div className="seccion-titulo">
@@ -216,6 +169,49 @@ export function Inicio() {
         </Link>
       </section>
     </>
+  );
+}
+
+/** Servicios con precio y duracion (visible solo con sesion iniciada). */
+export function Servicios() {
+  const { usuario } = useAuth();
+  const servicios = useCarga(() => serviciosService.activos(), []);
+  return (
+    <div className="seccion">
+      <Encabezado
+        titulo="Servicios"
+        migas={[{ texto: 'Inicio', a: '/' }]}
+        acciones={
+          usuario?.rol === 'CLIENTE' && (
+            <Link className="boton" to="/portal/citas/nueva">
+              <IconoCalendario tam={18} /> Solicitar cita
+            </Link>
+          )
+        }
+      />
+      {servicios.cargando ? (
+        <Cargando />
+      ) : servicios.error ? (
+        <p className="vacio">{servicios.error}</p>
+      ) : servicios.datos?.length ? (
+        <div className="rejilla rejilla-auto">
+          {servicios.datos.map((s) => (
+            <article key={s.id} className={`tarjeta-servicio ${s.categoria === 'PELUQUERIA' ? 'peluqueria' : ''}`}>
+              <span className="icono-circulo">{s.categoria === 'PELUQUERIA' ? <IconoTijeras /> : <IconoEstetoscopio />}</span>
+              <span className="insignia insignia-azul">{etiqueta(s.categoria)}</span>
+              <h3>{s.nombre}</h3>
+              <p>{s.descripcion}</p>
+              <div className="meta">
+                <span className="precio">{formatoMoneda(s.precio)}</span>
+                <span>{s.duracionMinutos} min</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="vacio">Aún no hay servicios publicados.</p>
+      )}
+    </div>
   );
 }
 

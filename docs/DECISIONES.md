@@ -25,3 +25,8 @@
 - **Recordatorios de citas (RA-05):** depende del servicio de correo.
 - **Respaldo automático (RNF-05):** corresponde a la infraestructura de MongoDB (por ejemplo, `mongodump` programado o el respaldo del proveedor). Aún no hay hosting seleccionado.
 - **Despliegue final:** no se ha elegido proveedor. La vista de despliegue muestra el entorno local y una topología genérica de tres nodos.
+
+## Cambios de interfaz solicitados
+
+- **Página de inicio:** por decisión del equipo solo presenta Jovan Pets, lo que hace y los accesos para iniciar sesión o crear cuenta. Los servicios con precios, la tienda y el carrito se muestran únicamente con la sesión iniciada (`/servicios`, `/catalogo`, `/carrito`).
+- **Login:** no muestra accesos rápidos a las cuentas de demostración; se ingresa con correo y contraseña.

@@ -79,7 +79,7 @@ export function Avatar({ nombre, tam = 38 }: { nombre: string; tam?: number }) {
 function BotonCarrito() {
   const { cantidadTotal } = useCarrito();
   const { usuario } = useAuth();
-  if (usuario && usuario.rol === 'VETERINARIO') return null;
+  if (!usuario || usuario.rol === 'VETERINARIO') return null;
   return (
     <Link to="/carrito" className="boton-icono" aria-label={`Carrito con ${cantidadTotal} productos`} title="Carrito">
       <IconoCarrito />
@@ -124,12 +124,14 @@ export function LayoutPublico() {
           <NavLink to="/" end>
             Inicio
           </NavLink>
-          <a href="/#servicios">Servicios</a>
-          <NavLink to="/catalogo">Tienda</NavLink>
           {usuario ? (
-            <Link className="boton" to={inicioPorRol(usuario.rol)}>
-              {usuario.rol === 'CLIENTE' ? 'Mi portal' : 'Ir al panel'}
-            </Link>
+            <>
+              <NavLink to="/servicios">Servicios</NavLink>
+              <NavLink to="/catalogo">Tienda</NavLink>
+              <Link className="boton" to={inicioPorRol(usuario.rol)}>
+                {usuario.rol === 'CLIENTE' ? 'Mi portal' : 'Ir al panel'}
+              </Link>
+            </>
           ) : (
             <>
               <NavLink to="/login">Iniciar sesión</NavLink>
@@ -149,9 +151,17 @@ export function LayoutPublico() {
           <Marca claro={false} />
           <p>Veterinaria, peluquería y tienda para mascotas. Agenda citas, consulta el historial y compra en línea.</p>
           <nav>
-            <Link to="/catalogo">Tienda</Link>
-            <Link to="/login">Iniciar sesión</Link>
-            <Link to="/registro">Crear cuenta</Link>
+            {usuario ? (
+              <>
+                <Link to="/servicios">Servicios</Link>
+                <Link to="/catalogo">Tienda</Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Iniciar sesión</Link>
+                <Link to="/registro">Crear cuenta</Link>
+              </>
+            )}
           </nav>
         </div>
       </footer>

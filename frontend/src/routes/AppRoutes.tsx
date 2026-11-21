@@ -9,7 +9,7 @@ import { PortalCliente } from '../pages/cliente/InicioCliente';
 import { MisCitas, MisMascotas, MisPedidos, SolicitarCita } from '../pages/cliente/PortalCliente';
 import { FichaMascota } from '../pages/FichaMascota';
 import { Perfil } from '../pages/Perfil';
-import { Inicio } from '../pages/Inicio';
+import { Inicio, Servicios } from '../pages/Inicio';
 import { Login } from '../pages/Login';
 import { AccesoDenegado, NoEncontrado, RecuperarClave, Registro, RestablecerClave } from '../pages/Publicas';
 import { Carrito, Catalogo } from '../pages/Tienda';
@@ -21,8 +21,9 @@ export function AppRoutes() {
     <Routes>
       <Route element={<LayoutPublico />}>
         <Route path="/" element={<Inicio />} />
-        <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/servicios" element={<RutaProtegida><Servicios /></RutaProtegida>} />
+        <Route path="/catalogo" element={<RutaProtegida><Catalogo /></RutaProtegida>} />
+        <Route path="/carrito" element={<RutaProtegida><Carrito /></RutaProtegida>} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/recuperar" element={<RecuperarClave />} />
