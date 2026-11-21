@@ -1,9 +1,0 @@
-Visual Paradigm 20260838
-Fecha: 2026-10-28T17:14:34.782643100-05:00[America/Bogota]
-03 · Vista logica | ClassDiagram | 13 formas | 9 conectores
-02 · Vista funcional | ComponentDiagram | 35 formas | 10 conectores
-01 · Vista de contexto | YourdonDeMarcoDFD | 8 formas | 8 conectores
-Vista funcional: 6 componentes, 10 puertos, 5 interfaces, 5 realizaciones y 5 usos.
-No hay relaciones Dependency entre componentes.
-Las interfaces provistas/requeridas se muestran con lineas continuas, circulo y semicirculo.
-Los cinco contratos coinciden con los tipos inyectados en ApiControlador.
