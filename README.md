@@ -82,6 +82,21 @@ Abre `http://localhost:5173`. Para generar la versión de producción: `npm run 
 
 Abre la carpeta raíz `Proyecto-final` (Archivo → Abrir carpeta). Extensiones recomendadas: *Extension Pack for Java* y *Spring Boot Extension Pack* para `backend/`, y *ESLint* para `frontend/`. La clase principal es `backend/src/main/java/com/jovanpets/JovanPetsApplication.java`.
 
+## Despliegue en la nube (Render + Vercel + MongoDB Atlas)
+
+| Parte | Servicio | Archivos |
+|---|---|---|
+| Base de datos | MongoDB Atlas | — |
+| Backend (Spring Boot) | Render, servicio web con Docker | `backend/Dockerfile` |
+| Frontend (React) | Vercel | `frontend/vercel.json` (redirige las rutas de React a `index.html`) |
+
+1. **Atlas:** en *Network Access* agregar `0.0.0.0/0`, porque Render no tiene IP fija.
+2. **Render:** *New → Web Service* con el repositorio, *Root Directory* `backend` y *Runtime* Docker. Variables: `MONGODB_URI`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `APP_DATOS_INICIALES` y, cuando exista el link de Vercel, `CORS_ORIGENES` y `FRONTEND_URL`. *Health Check Path*: `/api/estado`.
+3. **Vercel:** *Add New → Project* con el repositorio, *Root Directory* `frontend` y la variable `VITE_API_URL` con el link de Render (sin `/` al final).
+4. Volver a Render y poner en `CORS_ORIGENES` y `FRONTEND_URL` el link de Vercel; `CORS_ORIGENES` acepta varios valores separados por coma y patrones como `https://*.vercel.app`.
+
+En el plan gratuito, Render suspende el backend tras unos 15 minutos sin uso; la primera petición posterior tarda alrededor de un minuto.
+
 ## Estructura del proyecto
 
 ```text

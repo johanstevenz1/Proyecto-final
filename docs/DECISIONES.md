@@ -24,7 +24,7 @@
 - **Adjuntar archivos al historial (RM-07, prioridad baja):** no está en las historias aprobadas; no se implementó.
 - **Recordatorios de citas (RA-05):** depende del servicio de correo.
 - **Respaldo automático (RNF-05):** corresponde a la infraestructura de MongoDB (por ejemplo, `mongodump` programado o el respaldo del proveedor). Aún no hay hosting seleccionado.
-- **Despliegue final:** no se ha elegido proveedor. La vista de despliegue muestra el entorno local y una topología genérica de tres nodos.
+- **Despliegue final:** se preparó para Render (backend con Docker), Vercel (frontend) y MongoDB Atlas (base de datos). Falta actualizar la vista de despliegue (05) con esos proveedores una vez publicado.
 
 ## Cambios de interfaz solicitados
 

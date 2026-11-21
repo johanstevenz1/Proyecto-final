@@ -110,7 +110,8 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource(@Value("${app.cors.origenes}") String origenes) {
     CorsConfiguration c = new CorsConfiguration();
-    c.setAllowedOrigins(Arrays.stream(origenes.split(",")).map(String::trim).filter(s -> !s.isEmpty()).toList());
+    // Acepta origenes exactos (https://app.vercel.app) o patrones (https://*.vercel.app).
+    c.setAllowedOriginPatterns(Arrays.stream(origenes.split(",")).map(String::trim).filter(s -> !s.isEmpty()).toList());
     c.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
     c.setAllowedHeaders(List.of("Authorization", "Content-Type"));
     c.setMaxAge(3600L);
