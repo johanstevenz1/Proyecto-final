@@ -1,0 +1,26 @@
+# Dependencias y compilados
+node_modules/
+frontend/dist/
+backend/target/
+
+# Variables de entorno locales (secretos)
+.env
+!.env.example
+backend/.env
+frontend/.env
+
+# IDE y sistema
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db
+
+# Datos locales y herramientas
+datos/
+*.log
+.claude/
+tools/visual-paradigm/classes/
+tools/visual-paradigm/*.class
