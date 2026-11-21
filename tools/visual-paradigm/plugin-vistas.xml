@@ -1,0 +1,1 @@
+<plugin id="com.jovanpets.vistas20261121" name="Vistas desarrollo y despliegue" description="Agrega las vistas 04 y 05 de Jovan Pets" provider="Jovan Pets" class="VistasDesarrolloDespliegue"><runtime><library path="classes" relativePath="true"/></runtime></plugin>

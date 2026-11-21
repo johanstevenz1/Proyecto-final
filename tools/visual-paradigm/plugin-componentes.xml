@@ -1,0 +1,1 @@
+<plugin id="com.jovanpets.componentes" name="Jovan Pets componentes conectados" description="Puertos e interfaces provistas y requeridas" provider="Jovan Pets" class="ComponentesConectados"><runtime><library path="classes" relativePath="true"/></runtime></plugin>

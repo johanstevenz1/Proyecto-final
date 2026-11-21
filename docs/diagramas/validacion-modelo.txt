@@ -1,0 +1,10 @@
+Generado por Visual Paradigm 20260838
+Fecha: 2026-11-21T16:14:08.246379800-05:00[America/Bogota]
+03 · Vista logica | tipo ClassDiagram | 13 formas | 9 conectores
+04 · Vista de desarrollo | tipo ClassDiagram | 38 formas | 19 conectores
+02 · Vista funcional | tipo ComponentDiagram | 35 formas | 10 conectores
+05 · Vista de despliegue | tipo DeploymentDiagram | 20 formas | 3 conectores
+01 · Vista de contexto | tipo YourdonDeMarcoDFD | 8 formas | 8 conectores
+04: diagrama de clases UML por capas (controller, dto, security, service, mapper, repository, document, domain) del modulo de pedidos.
+05: diagrama de despliegue UML con nodos device/executionEnvironment, artefactos y vias de comunicacion.
+Clases, operaciones y paquetes tomados de backend/src/main/java/com/jovanpets.
