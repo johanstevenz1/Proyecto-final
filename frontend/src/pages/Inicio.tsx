@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Cargando, Encabezado } from '../components/Comunes';
+import { Cargando, Encabezado, Modal } from '../components/Comunes';
 import {
   IconoCalendario,
   IconoCamion,
@@ -9,8 +10,10 @@ import {
   IconoFlecha,
   IconoHuella,
   IconoJeringa,
+  IconoMas,
   IconoPortapapeles,
   IconoTijeras,
+  IconoUsuario,
 } from '../components/Iconos';
 import { inicioPorRol, useAuth } from '../contexts/AuthContext';
 import { useCarga } from '../hooks/useCarga';
@@ -20,6 +23,7 @@ import { etiqueta, formatoMoneda } from '../utils/formato';
 /** Pagina de inicio: presenta Jovan Pets y da acceso a iniciar sesion o registrarse. */
 export function Inicio() {
   const { usuario } = useAuth();
+  const [acceso, setAcceso] = useState<{ titulo: string; destino: string } | null>(null);
   const esCliente = usuario?.rol === 'CLIENTE';
   const panel = usuario ? inicioPorRol(usuario.rol) : '/login';
 
@@ -99,9 +103,9 @@ export function Inicio() {
           <h2>Todo lo que tu mascota necesita</h2>
         </div>
         <div className="rejilla rejilla-4">
-          {modulos.map((m) =>
-            usuario ? (
-              <Link key={m.titulo} to={m.a} className="tarjeta-modulo">
+          {modulos.map((m) => {
+            const contenido = (
+              <>
                 <span className="icono-circulo azul">
                   <m.icono tam={24} />
                 </span>
@@ -110,27 +114,48 @@ export function Inicio() {
                 <span className="enlace-flecha">
                   Ir <IconoFlecha tam={16} />
                 </span>
+              </>
+            );
+            return usuario ? (
+              <Link key={m.titulo} to={m.a} className="tarjeta-modulo">
+                {contenido}
               </Link>
             ) : (
-              <article key={m.titulo} className="tarjeta-modulo">
-                <span className="icono-circulo azul">
-                  <m.icono tam={24} />
-                </span>
-                <h3>{m.titulo}</h3>
-                <p>{m.texto}</p>
-                <div className="acciones-tarjeta">
-                  <Link className="boton boton-pequeno" to="/login" state={{ desde: m.a === '/login' ? undefined : m.a }}>
-                    Iniciar sesión
-                  </Link>
-                  <Link className="boton boton-secundario boton-pequeno" to="/registro">
-                    Crear cuenta
-                  </Link>
-                </div>
-              </article>
-            ),
-          )}
+              <button key={m.titulo} type="button" className="tarjeta-modulo" onClick={() => setAcceso({ titulo: m.titulo, destino: m.a })}>
+                {contenido}
+              </button>
+            );
+          })}
         </div>
       </section>
+
+      {acceso && (
+        <Modal titulo={acceso.titulo} onCerrar={() => setAcceso(null)}>
+          <p className="ayuda">Para continuar inicia sesión con tu cuenta o crea una nueva.</p>
+          <div className="opciones-acceso">
+            <Link className="opcion-acceso" to="/login" state={{ desde: acceso.destino === '/login' ? undefined : acceso.destino }}>
+              <span className="icono-circulo azul">
+                <IconoUsuario />
+              </span>
+              <span>
+                <strong>Iniciar sesión</strong>
+                <small>Ya tengo una cuenta en Jovan Pets</small>
+              </span>
+              <IconoFlecha tam={18} />
+            </Link>
+            <Link className="opcion-acceso" to="/registro">
+              <span className="icono-circulo verde">
+                <IconoMas />
+              </span>
+              <span>
+                <strong>Crear cuenta</strong>
+                <small>Soy nuevo y quiero registrarme</small>
+              </span>
+              <IconoFlecha tam={18} />
+            </Link>
+          </div>
+        </Modal>
+      )}
 
       <section className="seccion">
         <div className="seccion-titulo">
