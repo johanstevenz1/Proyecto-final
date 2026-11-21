@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
  * APP_DATOS_INICIALES=true y unicamente si las colecciones estan vacias.
  */
 @Component
+@org.springframework.core.annotation.Order(1)
 public class DatosIniciales implements ApplicationRunner {
   private static final Logger log = LoggerFactory.getLogger(DatosIniciales.class);
 

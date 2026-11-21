@@ -15,4 +15,6 @@ public interface PedidoRepository extends MongoRepository<Pedido, String> {
   List<Pedido> findTop5ByOrderByFechaDesc();
 
   long countByEstado(EstadoPedido estado);
+
+  List<Pedido> findByFechaBetween(java.time.LocalDateTime desde, java.time.LocalDateTime hasta);
 }

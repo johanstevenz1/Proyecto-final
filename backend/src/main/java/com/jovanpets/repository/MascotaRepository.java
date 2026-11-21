@@ -10,4 +10,6 @@ public interface MascotaRepository extends MongoRepository<Mascota, String> {
   List<Mascota> findByActivoTrueOrderByNombreAsc();
 
   long countByActivoTrue();
+
+  long countByEspecieAndActivoTrue(com.jovanpets.domain.Especie especie);
 }
