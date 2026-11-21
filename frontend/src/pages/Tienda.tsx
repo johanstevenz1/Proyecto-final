@@ -7,6 +7,7 @@ import { mensajeDeError, useCarga } from '../hooks/useCarga';
 import type { CategoriaProducto, Cotizacion, ModalidadEntrega, Pedido } from '../interfaces/tipos';
 import { clientesService, pedidosService, productosService } from '../services/servicios';
 import { etiqueta, formatoMoneda } from '../utils/formato';
+import { iconoCategoria } from './Inicio';
 
 const CATEGORIAS: CategoriaProducto[] = ['MEDICAMENTOS', 'ALIMENTOS', 'ACCESORIOS', 'HIGIENE', 'JUGUETES'];
 
@@ -64,6 +65,7 @@ export function Catalogo() {
             const cantidad = Math.min(cantidades[p.id] ?? 1, Math.max(maximo, 1));
             return (
               <article key={p.id} className="tarjeta-item">
+                <div className="producto-imagen">{iconoCategoria(p.categoria)}</div>
                 <span className="insignia insignia-azul" style={{ alignSelf: 'flex-start' }}>
                   {etiqueta(p.categoria)}
                 </span>

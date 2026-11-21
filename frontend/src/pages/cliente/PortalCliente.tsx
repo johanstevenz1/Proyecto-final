@@ -1,86 +1,15 @@
 import { useState, type ReactNode } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Alerta, Campo, Encabezado, EstadoCarga, Insignia, Modal, ModalMotivo, Tarjeta, Vacio } from '../../components/Comunes';
 import { FormularioMascota, SelectorHorario } from '../../components/Formularios';
-import { useAuth } from '../../contexts/AuthContext';
 import { mensajeDeError, useCarga } from '../../hooks/useCarga';
 import type { Cita, Pedido } from '../../interfaces/tipos';
 import { citasService, mascotasService, pedidosService, serviciosService } from '../../services/servicios';
 import { ahoraIsoLocal, edad, etiqueta, formatoFecha, formatoFechaHora, formatoMoneda, hoyIso } from '../../utils/formato';
 import { ResumenPedido } from '../Tienda';
+import { emojiEspecie } from '../../components/Iconos';
 
 const ahoraLocal = () => ahoraIsoLocal();
-
-/** Dashboard del cliente: resumen de mascotas, proximas citas y pedidos. */
-export function PortalCliente() {
-  const { usuario } = useAuth();
-  const ubicacion = useLocation();
-  const [bienvenida, setBienvenida] = useState(!!(ubicacion.state as { bienvenida?: boolean } | null)?.bienvenida);
-  const carga = useCarga(
-    () => Promise.all([mascotasService.listar(), citasService.listar(), pedidosService.listar()]),
-    [],
-  );
-  const [mascotas, citas, pedidos] = carga.datos ?? [[], [], []];
-  const proximas = citas.filter((c) => ['PENDIENTE', 'CONFIRMADA'].includes(c.estado) && c.inicio >= hoyIso()).reverse();
-
-  return (
-    <>
-      <Encabezado titulo={`Hola, ${usuario?.nombre.split(' ')[0] ?? ''}`} migas={[{ texto: 'Inicio', a: '/' }]} />
-      {bienvenida && (
-        <Alerta tipo="exito" onCerrar={() => setBienvenida(false)}>
-          Tu cuenta fue creada correctamente. Registra a tu mascota para solicitar citas.
-        </Alerta>
-      )}
-      <EstadoCarga cargando={carga.cargando} error={carga.error} onReintentar={carga.recargar}>
-        <div className="rejilla rejilla-3" style={{ marginBottom: 20 }}>
-          <Link to="/portal/mascotas" className="metrica metrica-verde" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <span>Mis mascotas</span>
-            <strong>{mascotas.length}</strong>
-          </Link>
-          <Link to="/portal/citas" className="metrica metrica-naranja" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <span>Próximas citas</span>
-            <strong>{proximas.length}</strong>
-          </Link>
-          <Link to="/portal/pedidos" className="metrica metrica-morado" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <span>Pedidos en curso</span>
-            <strong>{pedidos.filter((p) => ['PENDIENTE', 'CONFIRMADO', 'DESPACHADO'].includes(p.estado)).length}</strong>
-          </Link>
-        </div>
-        <div className="rejilla rejilla-2">
-          <Tarjeta titulo="Próximas citas" acciones={<Link className="boton boton-pequeno" to="/portal/citas/nueva">Solicitar cita</Link>}>
-            {proximas.length ? (
-              <ul className="lista-alertas">
-                {proximas.slice(0, 5).map((c) => (
-                  <li key={c.id} style={{ justifyContent: 'space-between' }}>
-                    <span>
-                      <strong>{formatoFechaHora(c.inicio)}</strong> · {c.servicioNombre} · {c.mascotaNombre}
-                    </span>
-                    <Insignia valor={c.estado} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <Vacio>No tienes citas próximas.</Vacio>
-            )}
-          </Tarjeta>
-          <Tarjeta titulo="Mis mascotas" acciones={<Link className="boton boton-pequeno" to="/portal/mascotas">Gestionar</Link>}>
-            {mascotas.length ? (
-              <ul className="lista-alertas">
-                {mascotas.map((m) => (
-                  <li key={m.id}>
-                    <Link to={`/portal/mascotas/${m.id}`}>{m.nombre}</Link>&nbsp;· {etiqueta(m.especie)} · {m.raza}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <Vacio>Aún no registras mascotas.</Vacio>
-            )}
-          </Tarjeta>
-        </div>
-      </EstadoCarga>
-    </>
-  );
-}
 
 /** Listado y registro de las mascotas del cliente (HU-05, HU-21). */
 export function MisMascotas() {
@@ -107,17 +36,20 @@ export function MisMascotas() {
         {mascotas.datos?.length ? (
           <div className="rejilla rejilla-auto">
             {mascotas.datos.map((m) => (
-              <article key={m.id} className="tarjeta-item">
-                <h3>{m.nombre}</h3>
-                <p>
-                  {etiqueta(m.especie)} · {m.raza} · {etiqueta(m.sexo)}
-                  <br />
-                  {edad(m.fechaNacimiento)} · {m.peso} kg
-                </p>
-                <Link className="boton boton-secundario" to={`/portal/mascotas/${m.id}`}>
-                  Ver ficha e historial
-                </Link>
-              </article>
+              <Link key={m.id} to={`/portal/mascotas/${m.id}`} className="tarjeta-mascota">
+                <span className="avatar-mascota">{emojiEspecie(m.especie)}</span>
+                <div>
+                  <h3>{m.nombre}</h3>
+                  <p>
+                    {etiqueta(m.especie)} · {m.raza} · {etiqueta(m.sexo)}
+                  </p>
+                  <div className="chips">
+                    <span>{edad(m.fechaNacimiento)}</span>
+                    <span>{m.peso} kg</span>
+                  </div>
+                  <small className="proxima-dosis">Ver ficha e historial →</small>
+                </div>
+              </Link>
             ))}
           </div>
         ) : (

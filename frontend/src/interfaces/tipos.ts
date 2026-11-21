@@ -222,4 +222,15 @@ export interface Panel {
   alertasStock: Producto[];
   pedidosPendientes: number;
   pedidosRecientes: Pedido[];
+  citasProximosDias: SerieDia[];
+  ventasUltimosDias: SerieDia[];
+  ventasMes: number;
+  mascotasPorEspecie: Partial<Record<Especie, number>>;
+  productosMasVendidos: { nombre: string; cantidad: number }[];
+}
+
+export interface SerieDia {
+  fecha: string;
+  cantidad: number;
+  valor: number | null;
 }

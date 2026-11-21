@@ -3,11 +3,15 @@ import { RutaProtegida } from '../components/Comunes';
 import { LayoutAplicacion, LayoutPublico } from '../layouts/Layouts';
 import { AgendaCitas } from '../pages/admin/Agenda';
 import { Inventario, PedidosAdmin, ProductosAdmin, ServiciosAdmin } from '../pages/admin/Comercial';
-import { ClienteDetallePagina, Clientes, Dashboard, MascotasAdmin, Usuarios } from '../pages/admin/Gestion';
-import { MisCitas, MisMascotas, MisPedidos, PortalCliente, SolicitarCita } from '../pages/cliente/PortalCliente';
+import { Dashboard } from '../pages/admin/Dashboard';
+import { ClienteDetallePagina, Clientes, MascotasAdmin, Usuarios } from '../pages/admin/Gestion';
+import { PortalCliente } from '../pages/cliente/InicioCliente';
+import { MisCitas, MisMascotas, MisPedidos, SolicitarCita } from '../pages/cliente/PortalCliente';
 import { FichaMascota } from '../pages/FichaMascota';
 import { Perfil } from '../pages/Perfil';
-import { AccesoDenegado, Inicio, Login, NoEncontrado, RecuperarClave, Registro, RestablecerClave } from '../pages/Publicas';
+import { Inicio } from '../pages/Inicio';
+import { Login } from '../pages/Login';
+import { AccesoDenegado, NoEncontrado, RecuperarClave, Registro, RestablecerClave } from '../pages/Publicas';
 import { Carrito, Catalogo } from '../pages/Tienda';
 
 const PERSONAL = ['VETERINARIO', 'ADMINISTRADOR'] as const;

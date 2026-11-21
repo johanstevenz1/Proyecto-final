@@ -1,42 +1,78 @@
-import { useState } from 'react';
+import { useEffect, useState, type ComponentType } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import {
+  IconoBolsa,
+  IconoCaja,
+  IconoCalendario,
+  IconoCampana,
+  IconoCarrito,
+  IconoEtiqueta,
+  IconoGrafica,
+  IconoHuella,
+  IconoInicio,
+  IconoPortapapeles,
+  IconoSalir,
+  IconoTablero,
+  IconoUsuario,
+  IconoUsuarios,
+} from '../components/Iconos';
 import logo from '../assets/logo.svg';
 import { inicioPorRol, useAuth } from '../contexts/AuthContext';
 import { useCarrito } from '../contexts/CarritoContext';
 import type { Rol } from '../interfaces/tipos';
+import { citasService } from '../services/servicios';
 import { etiqueta } from '../utils/formato';
 
 interface Enlace {
   a: string;
   texto: string;
   roles: Rol[];
+  icono: ComponentType<{ tam?: number }>;
+  seccion: string;
 }
 
-// Menu del panel segun la matriz de permisos por rol (REQUERIMIENTOS 4.3).
+// Menu segun la matriz de permisos por rol (REQUERIMIENTOS 4.3).
 const MENU: Enlace[] = [
-  { a: '/portal', texto: 'Mi portal', roles: ['CLIENTE'] },
-  { a: '/portal/mascotas', texto: 'Mis mascotas', roles: ['CLIENTE'] },
-  { a: '/portal/citas', texto: 'Mis citas', roles: ['CLIENTE'] },
-  { a: '/portal/pedidos', texto: 'Mis pedidos', roles: ['CLIENTE'] },
-  { a: '/panel', texto: 'Dashboard', roles: ['VETERINARIO', 'ADMINISTRADOR'] },
-  { a: '/panel/citas', texto: 'Agenda de citas', roles: ['VETERINARIO', 'ADMINISTRADOR'] },
-  { a: '/panel/clientes', texto: 'Clientes', roles: ['VETERINARIO', 'ADMINISTRADOR'] },
-  { a: '/panel/mascotas', texto: 'Mascotas', roles: ['VETERINARIO', 'ADMINISTRADOR'] },
-  { a: '/panel/inventario', texto: 'Inventario', roles: ['VETERINARIO', 'ADMINISTRADOR'] },
-  { a: '/panel/productos', texto: 'Productos', roles: ['ADMINISTRADOR'] },
-  { a: '/panel/servicios', texto: 'Servicios', roles: ['ADMINISTRADOR'] },
-  { a: '/panel/pedidos', texto: 'Pedidos', roles: ['ADMINISTRADOR'] },
-  { a: '/panel/usuarios', texto: 'Usuarios y roles', roles: ['ADMINISTRADOR'] },
-  { a: '/catalogo', texto: 'Catálogo', roles: ['CLIENTE', 'ADMINISTRADOR'] },
-  { a: '/perfil', texto: 'Mi perfil', roles: ['CLIENTE', 'VETERINARIO', 'ADMINISTRADOR'] },
+  { a: '/portal', texto: 'Mi portal', roles: ['CLIENTE'], icono: IconoInicio, seccion: 'Principal' },
+  { a: '/portal/mascotas', texto: 'Mis mascotas', roles: ['CLIENTE'], icono: IconoHuella, seccion: 'Principal' },
+  { a: '/portal/citas', texto: 'Mis citas', roles: ['CLIENTE'], icono: IconoCalendario, seccion: 'Principal' },
+  { a: '/portal/pedidos', texto: 'Mis pedidos', roles: ['CLIENTE'], icono: IconoBolsa, seccion: 'Principal' },
+  { a: '/catalogo', texto: 'Tienda', roles: ['CLIENTE'], icono: IconoCarrito, seccion: 'Principal' },
+  { a: '/panel', texto: 'Dashboard', roles: ['VETERINARIO', 'ADMINISTRADOR'], icono: IconoTablero, seccion: 'General' },
+  { a: '/panel/citas', texto: 'Agenda de citas', roles: ['VETERINARIO', 'ADMINISTRADOR'], icono: IconoCalendario, seccion: 'Atención' },
+  { a: '/panel/clientes', texto: 'Clientes', roles: ['VETERINARIO', 'ADMINISTRADOR'], icono: IconoUsuarios, seccion: 'Atención' },
+  { a: '/panel/mascotas', texto: 'Mascotas', roles: ['VETERINARIO', 'ADMINISTRADOR'], icono: IconoHuella, seccion: 'Atención' },
+  { a: '/panel/servicios', texto: 'Servicios', roles: ['ADMINISTRADOR'], icono: IconoPortapapeles, seccion: 'Atención' },
+  { a: '/panel/inventario', texto: 'Inventario', roles: ['VETERINARIO', 'ADMINISTRADOR'], icono: IconoCaja, seccion: 'Comercial' },
+  { a: '/panel/productos', texto: 'Productos', roles: ['ADMINISTRADOR'], icono: IconoEtiqueta, seccion: 'Comercial' },
+  { a: '/panel/pedidos', texto: 'Pedidos', roles: ['ADMINISTRADOR'], icono: IconoBolsa, seccion: 'Comercial' },
+  { a: '/catalogo', texto: 'Ver tienda', roles: ['ADMINISTRADOR'], icono: IconoCarrito, seccion: 'Comercial' },
+  { a: '/panel/usuarios', texto: 'Usuarios y roles', roles: ['ADMINISTRADOR'], icono: IconoGrafica, seccion: 'Administración' },
+  { a: '/perfil', texto: 'Mi perfil', roles: ['CLIENTE', 'VETERINARIO', 'ADMINISTRADOR'], icono: IconoUsuario, seccion: 'Cuenta' },
 ];
 
-function Marca() {
+function Marca({ claro = true }: { claro?: boolean }) {
   return (
-    <Link to="/" className="marca">
-      <img src={logo} alt="" width={34} height={34} />
-      <span>Jovan Pets</span>
+    <Link to="/" className={`marca ${claro ? '' : 'marca-oscura'}`}>
+      <img src={logo} alt="" width={36} height={36} />
+      <span>
+        Jovan <b>Pets</b>
+      </span>
     </Link>
+  );
+}
+
+export function Avatar({ nombre, tam = 38 }: { nombre: string; tam?: number }) {
+  const iniciales = nombre
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase())
+    .join('');
+  return (
+    <span className="avatar" style={{ width: tam, height: tam, fontSize: tam * 0.38 }} aria-hidden="true">
+      {iniciales}
+    </span>
   );
 }
 
@@ -45,8 +81,30 @@ function BotonCarrito() {
   const { usuario } = useAuth();
   if (usuario && usuario.rol === 'VETERINARIO') return null;
   return (
-    <Link to="/carrito" className="boton-carrito" aria-label={`Carrito con ${cantidadTotal} productos`}>
-      🛒 <span className="contador">{cantidadTotal}</span>
+    <Link to="/carrito" className="boton-icono" aria-label={`Carrito con ${cantidadTotal} productos`} title="Carrito">
+      <IconoCarrito />
+      {cantidadTotal > 0 && <span className="punto-contador">{cantidadTotal}</span>}
+    </Link>
+  );
+}
+
+/** Notificaciones: citas pendientes de confirmar (personal) o proximas citas (cliente). */
+function Notificaciones() {
+  const { usuario } = useAuth();
+  const [cantidad, setCantidad] = useState(0);
+  useEffect(() => {
+    if (!usuario) return;
+    const consulta = usuario.rol === 'CLIENTE' ? citasService.listar() : citasService.listar({ estado: 'PENDIENTE' });
+    consulta
+      .then((c) => setCantidad(usuario.rol === 'CLIENTE' ? c.filter((x) => x.estado === 'CONFIRMADA' || x.estado === 'PENDIENTE').length : c.length))
+      .catch(() => setCantidad(0));
+  }, [usuario]);
+  const destino = usuario?.rol === 'CLIENTE' ? '/portal/citas' : '/panel/citas';
+  const texto = usuario?.rol === 'CLIENTE' ? 'citas próximas' : 'citas por confirmar';
+  return (
+    <Link to={destino} className="boton-icono" title={`${cantidad} ${texto}`} aria-label={`${cantidad} ${texto}`}>
+      <IconoCampana />
+      {cantidad > 0 && <span className="punto-contador rojo">{cantidad}</span>}
     </Link>
   );
 }
@@ -57,24 +115,27 @@ export function LayoutPublico() {
   const [abierto, setAbierto] = useState(false);
   return (
     <div className="sitio">
-      <header className="barra-superior">
-        <Marca />
-        <button type="button" className="menu-movil" aria-label="Abrir menu" onClick={() => setAbierto(!abierto)}>
+      <header className="barra-publica">
+        <Marca claro={false} />
+        <button type="button" className="menu-movil" aria-label="Abrir menú" onClick={() => setAbierto(!abierto)}>
           ☰
         </button>
         <nav className={`nav-publica ${abierto ? 'abierta' : ''}`} onClick={() => setAbierto(false)}>
           <NavLink to="/" end>
             Inicio
           </NavLink>
-          <NavLink to="/catalogo">Catálogo</NavLink>
+          <a href="/#servicios">Servicios</a>
+          <NavLink to="/catalogo">Tienda</NavLink>
           {usuario ? (
-            <NavLink to={inicioPorRol(usuario.rol)}>{usuario.rol === 'CLIENTE' ? 'Mi portal' : 'Panel'}</NavLink>
+            <Link className="boton" to={inicioPorRol(usuario.rol)}>
+              {usuario.rol === 'CLIENTE' ? 'Mi portal' : 'Ir al panel'}
+            </Link>
           ) : (
             <>
               <NavLink to="/login">Iniciar sesión</NavLink>
-              <NavLink to="/registro" className="boton boton-claro">
-                Registrarme
-              </NavLink>
+              <Link to="/registro" className="boton">
+                Crear cuenta
+              </Link>
             </>
           )}
           <BotonCarrito />
@@ -84,57 +145,93 @@ export function LayoutPublico() {
         <Outlet />
       </main>
       <footer className="pie">
-        <p>Jovan Pets · Veterinaria, peluquería y tienda para mascotas</p>
+        <div className="pie-contenido">
+          <Marca claro={false} />
+          <p>Veterinaria, peluquería y tienda para mascotas. Agenda citas, consulta el historial y compra en línea.</p>
+          <nav>
+            <Link to="/catalogo">Tienda</Link>
+            <Link to="/login">Iniciar sesión</Link>
+            <Link to="/registro">Crear cuenta</Link>
+          </nav>
+        </div>
       </footer>
     </div>
   );
 }
 
-/** Area autenticada con menu lateral por rol; el panel administrativo se diferencia del cliente. */
+/**
+ * Area autenticada. El portal del cliente y el panel administrativo comparten estructura pero
+ * se diferencian por color, menu y funciones disponibles segun el rol.
+ */
 export function LayoutAplicacion() {
   const { usuario, cerrarSesion } = useAuth();
   const navegar = useNavigate();
   const [abierto, setAbierto] = useState(false);
   if (!usuario) return null;
-  const enlaces = MENU.filter((e) => e.roles.includes(usuario.rol));
   const esPersonal = usuario.rol !== 'CLIENTE';
+  const enlaces = MENU.filter((e) => e.roles.includes(usuario.rol));
+  const secciones = [...new Set(enlaces.map((e) => e.seccion))];
 
   return (
     <div className={`aplicacion ${esPersonal ? 'tema-panel' : 'tema-cliente'}`}>
-      <header className="barra-superior">
-        <button type="button" className="menu-movil" aria-label="Abrir menu" onClick={() => setAbierto(!abierto)}>
-          ☰
-        </button>
-        <Marca />
-        <span className="etiqueta-area">{esPersonal ? 'Panel administrativo' : 'Portal del cliente'}</span>
-        <div className="usuario-barra">
-          <BotonCarrito />
-          <span className="usuario-nombre">
-            {usuario.nombre}
-            <small>{etiqueta(usuario.rol)}</small>
-          </span>
-          <button
-            type="button"
-            className="boton boton-claro"
-            onClick={async () => {
-              await cerrarSesion();
-              navegar('/login');
-            }}
-          >
-            Cerrar sesión
-          </button>
+      <aside className={`lateral ${abierto ? 'abierto' : ''}`}>
+        <div className="lateral-marca">
+          <Marca />
+          <span className="lateral-area">{esPersonal ? 'Panel administrativo' : 'Portal del cliente'}</span>
         </div>
-      </header>
+        <nav aria-label="Menú principal" onClick={() => setAbierto(false)}>
+          {secciones.map((s) => (
+            <div key={s} className="lateral-seccion">
+              <span className="lateral-titulo">{s}</span>
+              {enlaces
+                .filter((e) => e.seccion === s)
+                .map((e) => (
+                  <NavLink key={e.a + e.texto} to={e.a} end={e.a === '/panel' || e.a === '/portal'}>
+                    <e.icono tam={19} />
+                    {e.texto}
+                  </NavLink>
+                ))}
+            </div>
+          ))}
+        </nav>
+        <div className="lateral-usuario">
+          <Avatar nombre={usuario.nombre} />
+          <div>
+            <strong>{usuario.nombre}</strong>
+            <small>{etiqueta(usuario.rol)}</small>
+          </div>
+        </div>
+      </aside>
+      {abierto && <div className="lateral-fondo" onClick={() => setAbierto(false)} />}
       <div className="cuerpo-aplicacion">
-        <aside className={`lateral ${abierto ? 'abierto' : ''}`} onClick={() => setAbierto(false)}>
-          <nav aria-label="Menu principal">
-            {enlaces.map((e) => (
-              <NavLink key={e.a} to={e.a} end={e.a === '/panel' || e.a === '/portal'}>
-                {e.texto}
-              </NavLink>
-            ))}
-          </nav>
-        </aside>
+        <header className="barra-superior">
+          <button type="button" className="menu-movil" aria-label="Abrir menú" onClick={() => setAbierto(!abierto)}>
+            ☰
+          </button>
+          <span className="saludo-barra">
+            {esPersonal ? 'Panel administrativo' : 'Portal del cliente'} · <b>{etiqueta(usuario.rol)}</b>
+          </span>
+          <div className="usuario-barra">
+            <Notificaciones />
+            <BotonCarrito />
+            <Link to="/perfil" className="perfil-barra" title="Mi perfil">
+              <Avatar nombre={usuario.nombre} tam={34} />
+              <span className="usuario-nombre">{usuario.nombre.split(' ')[0]}</span>
+            </Link>
+            <button
+              type="button"
+              className="boton-icono"
+              title="Cerrar sesión"
+              aria-label="Cerrar sesión"
+              onClick={async () => {
+                await cerrarSesion();
+                navegar('/login');
+              }}
+            >
+              <IconoSalir />
+            </button>
+          </div>
+        </header>
         <main className="contenido">
           <Outlet />
         </main>

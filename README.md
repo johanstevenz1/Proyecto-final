@@ -40,7 +40,21 @@ Backend (`backend/.env.example`). Copia el archivo como `backend/.env`, que no s
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Administrador inicial; solo se crea si no existe ninguno | vacío |
 | `APP_DATOS_INICIALES` | `true` crea servicios y productos de ejemplo si las colecciones están vacías | `false` |
 
-Frontend (`frontend/.env.example`): `VITE_API_URL=http://localhost:8080`.
+| `DEMO_CLIENTE_EMAIL`, `DEMO_CLIENTE_PASSWORD` | Crea una cuenta de cliente de demostración con mascotas, historial, citas y pedidos, más fichas de otros clientes | vacío |
+| `DEMO_VETERINARIO_EMAIL`, `DEMO_VETERINARIO_PASSWORD` | Cuenta de personal veterinario de demostración | vacío |
+
+Frontend (`frontend/.env.example`): `VITE_API_URL=http://localhost:8080`. Las variables `VITE_DEMO_*` muestran en el login botones de acceso rápido a las cuentas de demostración.
+
+## Cuentas de demostración
+
+Con los valores de `backend/.env.example` se crean dos cuentas, cada una con sus propias funciones:
+
+| Cuenta | Qué puede hacer |
+|---|---|
+| **Cliente** (`cliente@jovanpets.local`) | Portal del cliente: sus mascotas con historial y próximas vacunas, solicitar, reprogramar y cancelar citas, tienda con carrito, pedidos y perfil |
+| **Administrador** (`admin@jovanpets.local`) | Panel administrativo: dashboard con gráficas, agenda, clientes, mascotas, historial clínico, servicios, productos, inventario, pedidos y roles de usuario |
+
+Las contraseñas están en `backend/.env.example`; cámbialas antes de publicar el sistema.
 
 ## Ejecutar el backend
 
