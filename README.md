@@ -43,15 +43,16 @@ Backend (`backend/.env.example`). Copia el archivo como `backend/.env`, que no s
 | `DEMO_CLIENTE_EMAIL`, `DEMO_CLIENTE_PASSWORD` | Crea una cuenta de cliente de demostración con mascotas, historial, citas y pedidos, más fichas de otros clientes | vacío |
 | `DEMO_VETERINARIO_EMAIL`, `DEMO_VETERINARIO_PASSWORD` | Cuenta de personal veterinario de demostración | vacío |
 
-Frontend (`frontend/.env.example`): `VITE_API_URL=http://localhost:8080`. Las variables `VITE_DEMO_*` muestran en el login botones de acceso rápido a las cuentas de demostración.
+Frontend (`frontend/.env.example`): `VITE_API_URL=http://localhost:8080`.
 
 ## Cuentas de demostración
 
-Con los valores de `backend/.env.example` se crean dos cuentas, cada una con sus propias funciones:
+Con los valores de `backend/.env.example` se crean tres cuentas, cada una con sus propias funciones. Se ingresa con correo y contraseña en la pantalla de inicio de sesión:
 
 | Cuenta | Qué puede hacer |
 |---|---|
 | **Cliente** (`cliente@jovanpets.local`) | Portal del cliente: sus mascotas con historial y próximas vacunas, solicitar, reprogramar y cancelar citas, tienda con carrito, pedidos y perfil |
+| **Médico / personal veterinario** (`veterinario@jovanpets.local`) | Panel del personal: dashboard, agenda (confirmar, rechazar, reprogramar y atender citas), clientes, mascotas, historial clínico (antecedentes, vacunas y desparasitaciones) e inventario. No gestiona productos, pedidos ni usuarios |
 | **Administrador** (`admin@jovanpets.local`) | Panel administrativo: dashboard con gráficas, agenda, clientes, mascotas, historial clínico, servicios, productos, inventario, pedidos y roles de usuario |
 
 Las contraseñas están en `backend/.env.example`; cámbialas antes de publicar el sistema.

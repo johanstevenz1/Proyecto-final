@@ -1,29 +1,9 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Alerta, Campo } from '../components/Comunes';
-import { IconoCalendario, IconoEscudo, IconoHuella, IconoTablero, IconoUsuario } from '../components/Iconos';
+import { IconoCalendario, IconoEscudo, IconoHuella } from '../components/Iconos';
 import { inicioPorRol, useAuth } from '../contexts/AuthContext';
 import { mensajeDeError } from '../hooks/useCarga';
-
-// Cuentas de demostracion configurables por variables de entorno (frontend/.env).
-const DEMOS = [
-  {
-    clave: 'cliente',
-    titulo: 'Cuenta de cliente',
-    detalle: 'Mascotas, historial, citas y pedidos',
-    email: import.meta.env.VITE_DEMO_CLIENTE_EMAIL,
-    contrasena: import.meta.env.VITE_DEMO_CLIENTE_PASSWORD,
-    icono: IconoUsuario,
-  },
-  {
-    clave: 'admin',
-    titulo: 'Cuenta de administrador',
-    detalle: 'Dashboard, clientes, agenda, inventario y roles',
-    email: import.meta.env.VITE_DEMO_ADMIN_EMAIL,
-    contrasena: import.meta.env.VITE_DEMO_ADMIN_PASSWORD,
-    icono: IconoTablero,
-  },
-].filter((d) => d.email && d.contrasena);
 
 /** HU-19: inicio de sesion con redireccion al dashboard segun el rol. */
 export function Login() {
@@ -100,23 +80,6 @@ export function Login() {
           </button>
         </form>
 
-        {DEMOS.length > 0 && (
-          <div className="demos">
-            <span className="separador">Cuentas de demostración</span>
-            {DEMOS.map((d) => (
-              <button key={d.clave} type="button" className="tarjeta-demo" disabled={enviando} onClick={() => void entrar(d.email!, d.contrasena!)}>
-                <span className={`icono-circulo ${d.clave === 'admin' ? 'morado' : 'verde'}`}>
-                  <d.icono />
-                </span>
-                <span>
-                  <strong>{d.titulo}</strong>
-                  <small>{d.detalle}</small>
-                  <small className="demo-correo">{d.email}</small>
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
         <p className="centrado">
           ¿No tienes cuenta? <Link to="/registro">Regístrate gratis</Link>
         </p>
