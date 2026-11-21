@@ -1,7 +1,0 @@
-backend/target/
-backend/datos/
-.env
-*.log
-*.vpp.bak_*
-*.vpp.lck
-.idea/
