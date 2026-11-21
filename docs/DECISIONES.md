@@ -5,7 +5,7 @@
 - **Base de datos:** `REQUERIMIENTOS.md` proponía PostgreSQL/MySQL y la versión anterior del repositorio usaba JPA y H2. El `AGENTS.md` vigente exige MongoDB, así que se reconstruyó la persistencia con Spring Data MongoDB y se eliminó toda dependencia relacional.
 - **Frontend:** la versión anterior tenía HTML y JavaScript sin framework. Se reemplazó por React + TypeScript, como exige `AGENTS.md`, siguiendo los wireframes de `docs/wireframes`.
 - **Roles:** las historias definen Cliente, Personal veterinario y Administrador (ROL-01). No se creó un rol de peluquería: el personal gestiona ambas agendas. Si se necesita, basta con agregar el valor al enum `Rol`.
-- **Vista lógica:** el diagrama entregado indica identificadores `Long` y “Java/JPA”. En la implementación los `id` son `String` (ObjectId de MongoDB). Se recomienda actualizar esa etiqueta del diagrama.
+- **Vista lógica:** la versión anterior indicaba identificadores `Long` y “Java/JPA”. Ahora el diagrama se genera desde el código: los `id` son `String` (ObjectId de MongoDB).
 
 ## Supuestos (confirmar con el negocio)
 
@@ -23,8 +23,8 @@
 - **Correo (HU-22, HU-10 criterio 4, HU-18 criterio 5):** la vista de contexto marca el servicio de correo como “integración pendiente”. El backend ya genera el enlace temporal y lo entrega a la interfaz `ServicioCorreo`; la implementación actual (`CorreoRegistroLocalService`) lo escribe en el registro del servidor. Falta elegir el proveedor SMTP o API e implementar esa interfaz.
 - **Adjuntar archivos al historial (RM-07, prioridad baja):** no está en las historias aprobadas; no se implementó.
 - **Recordatorios de citas (RA-05):** depende del servicio de correo.
-- **Respaldo automático (RNF-05):** corresponde a la infraestructura de MongoDB (por ejemplo, `mongodump` programado o el respaldo del proveedor). Aún no hay hosting seleccionado.
-- **Despliegue final:** se preparó para Render (backend con Docker), Vercel (frontend) y MongoDB Atlas (base de datos). Falta actualizar la vista de despliegue (05) con esos proveedores una vez publicado.
+- **Respaldo automático (RNF-05):** depende de MongoDB Atlas; el plan gratuito M0 no incluye copias programadas, así que se recomienda `mongodump` periódico o un plan con respaldo.
+- **Despliegue final:** publicado en Vercel (frontend), Render (backend con Docker) y MongoDB Atlas (base de datos); la vista 05 refleja esta topología.
 
 ## Cambios de interfaz solicitados
 

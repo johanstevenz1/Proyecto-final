@@ -1,0 +1,414 @@
+CLASE|RegistroActivable||abstracta|com.jovanpets.document
+-activo : boolean
+#RegistroActivable()
++isActivo() : boolean
++setActivo(activo : boolean) : void
++activar() : void
++desactivar() : void
+CLASE|Usuario|Document||com.jovanpets.document
+-id : String
+-email : String
+-claveHash : String
+-nombre : String
+-rol : Rol
+-clienteId : String
+-versionSesion : int
+-fechaRegistro : Instant
+-recuperacionHash : String
+-recuperacionExpira : Instant
++Usuario()
++getId() : String
++setId(id : String) : void
++getEmail() : String
++setEmail(email : String) : void
++getClaveHash() : String
++setClaveHash(claveHash : String) : void
++getNombre() : String
++setNombre(nombre : String) : void
++getRol() : Rol
++setRol(rol : Rol) : void
++getClienteId() : String
++setClienteId(clienteId : String) : void
++getVersionSesion() : int
++setVersionSesion(versionSesion : int) : void
++getFechaRegistro() : Instant
++setFechaRegistro(fechaRegistro : Instant) : void
++getRecuperacionHash() : String
++setRecuperacionHash(recuperacionHash : String) : void
++getRecuperacionExpira() : Instant
++setRecuperacionExpira(recuperacionExpira : Instant) : void
+CLASE|Cliente|Document||com.jovanpets.document
+-id : String
+-version : Long
+-nombre : String
+-cedula : String
+-telefono : String
+-email : String
+-direccion : String
+-fechaRegistro : Instant
+-historial : List<CambioCliente>
++Cliente()
++getVersion() : Long
++setVersion(version : Long) : void
++getId() : String
++setId(id : String) : void
++getNombre() : String
++setNombre(nombre : String) : void
++getCedula() : String
++setCedula(cedula : String) : void
++getTelefono() : String
++setTelefono(telefono : String) : void
++getEmail() : String
++setEmail(email : String) : void
++getDireccion() : String
++setDireccion(direccion : String) : void
++getFechaRegistro() : Instant
++setFechaRegistro(fechaRegistro : Instant) : void
++getHistorial() : List<CambioCliente>
++setHistorial(historial : List<CambioCliente>) : void
+CLASE|CambioCliente|||com.jovanpets.document
+-fecha : Instant
+-usuario : String
+-detalle : String
++CambioCliente()
++CambioCliente(fecha : Instant, usuario : String, detalle : String)
++getFecha() : Instant
++setFecha(fecha : Instant) : void
++getUsuario() : String
++setUsuario(usuario : String) : void
++getDetalle() : String
++setDetalle(detalle : String) : void
+CLASE|Mascota|Document||com.jovanpets.document
+-id : String
+-propietarioId : String
+-nombre : String
+-especie : Especie
+-raza : String
+-sexo : Sexo
+-fechaNacimiento : LocalDate
+-peso : BigDecimal
+-fechaRegistro : Instant
++Mascota()
++getId() : String
++setId(id : String) : void
++getPropietarioId() : String
++setPropietarioId(propietarioId : String) : void
++getNombre() : String
++setNombre(nombre : String) : void
++getEspecie() : Especie
++setEspecie(especie : Especie) : void
++getRaza() : String
++setRaza(raza : String) : void
++getSexo() : Sexo
++setSexo(sexo : Sexo) : void
++getFechaNacimiento() : LocalDate
++setFechaNacimiento(fechaNacimiento : LocalDate) : void
++getPeso() : BigDecimal
++setPeso(peso : BigDecimal) : void
++getFechaRegistro() : Instant
++setFechaRegistro(fechaRegistro : Instant) : void
+CLASE|Atencion|Document||com.jovanpets.document
+-id : String
+-mascotaId : String
+-tipo : TipoAtencion
+-fecha : LocalDate
+-descripcion : String
+-observaciones : String
+-profesional : String
+-proximaFecha : LocalDate
+-registradoPor : String
+-fechaRegistro : Instant
++Atencion()
++getId() : String
++setId(id : String) : void
++getMascotaId() : String
++setMascotaId(mascotaId : String) : void
++getTipo() : TipoAtencion
++setTipo(tipo : TipoAtencion) : void
++getFecha() : LocalDate
++setFecha(fecha : LocalDate) : void
++getDescripcion() : String
++setDescripcion(descripcion : String) : void
++getObservaciones() : String
++setObservaciones(observaciones : String) : void
++getProfesional() : String
++setProfesional(profesional : String) : void
++getProximaFecha() : LocalDate
++setProximaFecha(proximaFecha : LocalDate) : void
++getRegistradoPor() : String
++setRegistradoPor(registradoPor : String) : void
++getFechaRegistro() : Instant
++setFechaRegistro(fechaRegistro : Instant) : void
+CLASE|Servicio|Document||com.jovanpets.document
+-id : String
+-nombre : String
+-descripcion : String
+-categoria : CategoriaServicio
+-precio : BigDecimal
+-duracionMinutos : int
++Servicio()
++getId() : String
++setId(id : String) : void
++getNombre() : String
++setNombre(nombre : String) : void
++getDescripcion() : String
++setDescripcion(descripcion : String) : void
++getCategoria() : CategoriaServicio
++setCategoria(categoria : CategoriaServicio) : void
++getPrecio() : BigDecimal
++setPrecio(precio : BigDecimal) : void
++getDuracionMinutos() : int
++setDuracionMinutos(duracionMinutos : int) : void
+CLASE|Cita|Document||com.jovanpets.document
+-id : String
+-version : Long
+-mascotaId : String
+-mascotaNombre : String
+-clienteId : String
+-clienteNombre : String
+-servicioId : String
+-servicioNombre : String
+-agenda : CategoriaServicio
+-inicio : LocalDateTime
+-fin : LocalDateTime
+-estado : EstadoCita
+-motivo : String
+-veterinarioId : String
+-veterinarioNombre : String
+-franjas : List<LocalDateTime>
+-bloqueaAgenda : boolean
+-fechaSolicitud : Instant
++Cita()
++getVersion() : Long
++setVersion(version : Long) : void
++getId() : String
++setId(id : String) : void
++getMascotaId() : String
++setMascotaId(mascotaId : String) : void
++getMascotaNombre() : String
++setMascotaNombre(mascotaNombre : String) : void
++getClienteId() : String
++setClienteId(clienteId : String) : void
++getClienteNombre() : String
++setClienteNombre(clienteNombre : String) : void
++getServicioId() : String
++setServicioId(servicioId : String) : void
++getServicioNombre() : String
++setServicioNombre(servicioNombre : String) : void
++getAgenda() : CategoriaServicio
++setAgenda(agenda : CategoriaServicio) : void
++getInicio() : LocalDateTime
++setInicio(inicio : LocalDateTime) : void
++getFin() : LocalDateTime
++setFin(fin : LocalDateTime) : void
++getEstado() : EstadoCita
++setEstado(estado : EstadoCita) : void
++getMotivo() : String
++setMotivo(motivo : String) : void
++getVeterinarioId() : String
++setVeterinarioId(veterinarioId : String) : void
++getVeterinarioNombre() : String
++setVeterinarioNombre(veterinarioNombre : String) : void
++getFranjas() : List<LocalDateTime>
++setFranjas(franjas : List<LocalDateTime>) : void
++isBloqueaAgenda() : boolean
++setBloqueaAgenda(bloqueaAgenda : boolean) : void
++getFechaSolicitud() : Instant
++setFechaSolicitud(fechaSolicitud : Instant) : void
+CLASE|Producto|Document||com.jovanpets.document
+-id : String
+-nombre : String
+-descripcion : String
+-categoria : CategoriaProducto
+-precio : BigDecimal
+-stock : int
+-stockMinimo : int
+-requiereFormula : boolean
+-version : Long
++Producto()
++getId() : String
++setId(id : String) : void
++getNombre() : String
++setNombre(nombre : String) : void
++getDescripcion() : String
++setDescripcion(descripcion : String) : void
++getCategoria() : CategoriaProducto
++setCategoria(categoria : CategoriaProducto) : void
++getPrecio() : BigDecimal
++setPrecio(precio : BigDecimal) : void
++getStock() : int
++setStock(stock : int) : void
++getStockMinimo() : int
++setStockMinimo(stockMinimo : int) : void
++isRequiereFormula() : boolean
++setRequiereFormula(requiereFormula : boolean) : void
++getVersion() : Long
++setVersion(version : Long) : void
++stockBajo() : boolean
+CLASE|MovimientoInventario|Document||com.jovanpets.document
+-id : String
+-productoId : String
+-productoNombre : String
+-fecha : LocalDateTime
+-tipo : TipoMovimiento
+-cantidad : int
+-motivo : String
+-saldo : int
+-usuarioId : String
+-usuarioNombre : String
+-pedidoId : String
++MovimientoInventario()
++getId() : String
++setId(id : String) : void
++getProductoId() : String
++setProductoId(productoId : String) : void
++getProductoNombre() : String
++setProductoNombre(productoNombre : String) : void
++getFecha() : LocalDateTime
++setFecha(fecha : LocalDateTime) : void
++getTipo() : TipoMovimiento
++setTipo(tipo : TipoMovimiento) : void
++getCantidad() : int
++setCantidad(cantidad : int) : void
++getMotivo() : String
++setMotivo(motivo : String) : void
++getSaldo() : int
++setSaldo(saldo : int) : void
++getUsuarioId() : String
++setUsuarioId(usuarioId : String) : void
++getUsuarioNombre() : String
++setUsuarioNombre(usuarioNombre : String) : void
++getPedidoId() : String
++setPedidoId(pedidoId : String) : void
+CLASE|Pedido|Document||com.jovanpets.document
+-id : String
+-version : Long
+-numero : String
+-clienteId : String
+-clienteNombre : String
+-fecha : LocalDateTime
+-estado : EstadoPedido
+-modalidad : ModalidadEntrega
+-direccionEntrega : String
+-detalles : List<DetallePedido>
+-total : BigDecimal
+-motivoCancelacion : String
++Pedido()
++getVersion() : Long
++setVersion(version : Long) : void
++getId() : String
++setId(id : String) : void
++getNumero() : String
++setNumero(numero : String) : void
++getClienteId() : String
++setClienteId(clienteId : String) : void
++getClienteNombre() : String
++setClienteNombre(clienteNombre : String) : void
++getFecha() : LocalDateTime
++setFecha(fecha : LocalDateTime) : void
++getEstado() : EstadoPedido
++setEstado(estado : EstadoPedido) : void
++getModalidad() : ModalidadEntrega
++setModalidad(modalidad : ModalidadEntrega) : void
++getDireccionEntrega() : String
++setDireccionEntrega(direccionEntrega : String) : void
++getDetalles() : List<DetallePedido>
++setDetalles(detalles : List<DetallePedido>) : void
++getTotal() : BigDecimal
++setTotal(total : BigDecimal) : void
++getMotivoCancelacion() : String
++setMotivoCancelacion(motivoCancelacion : String) : void
+CLASE|DetallePedido|||com.jovanpets.document
+-productoId : String
+-nombreProducto : String
+-cantidad : int
+-precioUnitario : BigDecimal
+-subtotal : BigDecimal
++DetallePedido()
++getProductoId() : String
++setProductoId(productoId : String) : void
++getNombreProducto() : String
++setNombreProducto(nombreProducto : String) : void
++getCantidad() : int
++setCantidad(cantidad : int) : void
++getPrecioUnitario() : BigDecimal
++setPrecioUnitario(precioUnitario : BigDecimal) : void
++getSubtotal() : BigDecimal
++setSubtotal(subtotal : BigDecimal) : void
+CLASE|EstadoConTransiciones<E extends Enum<E>>|interface||com.jovanpets.domain
++siguientes() : Set<E>
++puedeCambiarA(destino : E) : boolean
+CLASE|Rol|enumeration||com.jovanpets.domain
+LITERAL|CLIENTE
+LITERAL|VETERINARIO
+LITERAL|ADMINISTRADOR
++values() : Rol[]
++valueOf(nombre : String) : Rol
++esPersonal() : boolean
+CLASE|Especie|enumeration||com.jovanpets.domain
+LITERAL|PERRO
+LITERAL|GATO
+LITERAL|AVE
+LITERAL|OTRO
++values() : Especie[]
++valueOf(nombre : String) : Especie
+CLASE|Sexo|enumeration||com.jovanpets.domain
+LITERAL|MACHO
+LITERAL|HEMBRA
++values() : Sexo[]
++valueOf(nombre : String) : Sexo
+CLASE|TipoAtencion|enumeration||com.jovanpets.domain
+LITERAL|CONSULTA
+LITERAL|CONTROL
+LITERAL|CIRUGIA
+LITERAL|VACUNA
+LITERAL|DESPARASITACION
+LITERAL|PELUQUERIA
+LITERAL|OTRO
++values() : TipoAtencion[]
++valueOf(nombre : String) : TipoAtencion
++esPreventiva() : boolean
+CLASE|CategoriaServicio|enumeration||com.jovanpets.domain
+LITERAL|VETERINARIA
+LITERAL|PELUQUERIA
++values() : CategoriaServicio[]
++valueOf(nombre : String) : CategoriaServicio
+CLASE|EstadoCita|enumeration||com.jovanpets.domain
+LITERAL|PENDIENTE
+LITERAL|CONFIRMADA
+LITERAL|RECHAZADA
+LITERAL|CANCELADA
+LITERAL|ATENDIDA
++values() : EstadoCita[]
++valueOf(nombre : String) : EstadoCita
++siguientes() : Set<EstadoCita>
++ocupaAgenda() : boolean
++admiteReprogramacion() : boolean
+CLASE|CategoriaProducto|enumeration||com.jovanpets.domain
+LITERAL|MEDICAMENTOS
+LITERAL|ALIMENTOS
+LITERAL|ACCESORIOS
+LITERAL|HIGIENE
+LITERAL|JUGUETES
++values() : CategoriaProducto[]
++valueOf(nombre : String) : CategoriaProducto
+CLASE|TipoMovimiento|enumeration||com.jovanpets.domain
+LITERAL|ENTRADA
+LITERAL|SALIDA
++values() : TipoMovimiento[]
++valueOf(nombre : String) : TipoMovimiento
+CLASE|EstadoPedido|enumeration||com.jovanpets.domain
+LITERAL|PENDIENTE
+LITERAL|CONFIRMADO
+LITERAL|DESPACHADO
+LITERAL|ENTREGADO
+LITERAL|CANCELADO
++values() : EstadoPedido[]
++valueOf(nombre : String) : EstadoPedido
++siguientes() : Set<EstadoPedido>
++esCancelable() : boolean
+CLASE|ModalidadEntrega|enumeration||com.jovanpets.domain
+LITERAL|DOMICILIO
+LITERAL|RECOGIDA
++values() : ModalidadEntrega[]
++valueOf(nombre : String) : ModalidadEntrega

@@ -192,7 +192,7 @@ public class VistasDesarrolloDespliegue extends EntregaDiagramas {
                     "-productoId : String", "-nombreProducto : String", "-cantidad : int", "-precioUnitario : BigDecimal", "-subtotal : BigDecimal"),
                 clase("Producto", "Document",
                     "-id : String", "-nombre : String", "-categoria : CategoriaProducto", "-precio : BigDecimal", "-stock : int",
-                    "-stockMinimo : int", "-requiereFormula : boolean", "-activo : boolean", "-version : Long", "+stockBajo() : boolean"),
+                    "-stockMinimo : int", "-requiereFormula : boolean", "-version : Long", "+stockBajo() : boolean"),
                 clase("MovimientoInventario", "Document",
                     "-id : String", "-productoId : String", "-fecha : LocalDateTime", "-tipo : TipoMovimiento", "-cantidad : int",
                     "-motivo : String", "-saldo : int", "-pedidoId : String"))),

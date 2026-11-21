@@ -1,0 +1,1 @@
+<plugin id="com.jovanpets.correccion20261121" name="Vistas corregidas Jovan Pets" description="Regenera las cinco vistas con las observaciones del profesor" provider="Jovan Pets" class="VistasCorregidas"><runtime><library path="classes" relativePath="true"/></runtime></plugin>

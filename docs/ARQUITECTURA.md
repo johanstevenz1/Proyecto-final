@@ -7,7 +7,7 @@
 | Presentación | `controller` | Endpoints REST, validación inicial (`@Valid`), autorización por rol (`@PreAuthorize`), códigos HTTP. Sin lógica de negocio. |
 | Transferencia de datos | `dto` | `*Request` validados con Bean Validation y `*Response` que controlan lo que sale (nunca se expone el hash de contraseña ni los documentos). |
 | Aplicación y negocio | `service` | Casos de uso y reglas: horarios ocupados, stock, transiciones de estado, propiedad de los datos, compensaciones. |
-| Dominio | `domain` | Enumeraciones y reglas puras sin dependencias de Spring ni de MongoDB (`EstadoCita`, `EstadoPedido`, `HorarioAtencion`…). |
+| Dominio | `domain` | Enumeraciones y reglas puras sin dependencias de Spring ni de MongoDB (`EstadoCita`, `EstadoPedido`, `HorarioAtencion`…). Los estados con ciclo de vida implementan la interfaz `EstadoConTransiciones`. |
 | Persistencia | `repository`, `document` | Interfaces `MongoRepository`, fragmento `ProductoStockOperations` con operaciones atómicas en `MongoTemplate`, `SecuenciaRepository`; documentos `@Document`. |
 | Transversal | `security`, `config`, `exception`, `mapper` | JWT, CORS, carga inicial, manejo global de errores y conversión documento → DTO. |
 
@@ -27,6 +27,8 @@ Las dependencias van en un solo sentido (`controller → service → repository`
 | `movimientos_inventario` | `MovimientoInventario` | — | `productoId`, `pedidoId` | `{productoId, fecha desc}` |
 | `pedidos` | `Pedido` | `detalles[]` (`DetallePedido`) | `clienteId` | `numero` único, `clienteId`, `fecha` |
 | `contadores` | `Contador` | — | — | `_id` = nombre de la secuencia |
+
+Los documentos con baja lógica (`Usuario`, `Cliente`, `Mascota`, `Servicio`, `Producto`) heredan de la clase abstracta `RegistroActivable`; MongoDB guarda el campo heredado `activo` dentro de cada documento.
 
 ### Incrustar o referenciar
 
